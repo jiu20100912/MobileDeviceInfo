@@ -53,7 +53,7 @@ class EmulatorInfo {
      * @return true为模拟器
      */
     private static boolean readCpuInfo() {
-        String result = "unknown";
+        String result = "";
         try {
             String[] args = {"/system/bin/cat", "/proc/cpuinfo"};
             ProcessBuilder cmd = new ProcessBuilder(args);

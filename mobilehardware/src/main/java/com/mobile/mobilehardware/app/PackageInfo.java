@@ -56,10 +56,10 @@ class PackageInfo {
         intent.addCategory(Intent.CATEGORY_HOME);
         final ResolveInfo res = context.getPackageManager().resolveActivity(intent, 0);
         if (res.activityInfo == null) {
-            return "unknown";
+            return "";
         }
         if (res.activityInfo.packageName.equals("android")) {
-            return "unknown";
+            return "";
         } else {
             return res.activityInfo.packageName;
         }

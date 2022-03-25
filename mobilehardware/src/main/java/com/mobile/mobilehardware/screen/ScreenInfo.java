@@ -27,14 +27,16 @@ class ScreenInfo {
     static JSONObject getMobScreen(Context context, Window window) {
         final ScreenBean screenBean = new ScreenBean();
         try {
-            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            WindowManager  ws             = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            ws.getDefaultDisplay().getRealMetrics(displayMetrics);
             screenBean.setDensityScale(displayMetrics.density);
             screenBean.setDensityDpi(displayMetrics.densityDpi);
             screenBean.setWidth(displayMetrics.widthPixels);
             screenBean.setHeight(displayMetrics.heightPixels);
-            int screenMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE);
+            int screenMode       = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE);
             int screenBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
-            int screenChange = Settings.System.getInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION);
+            int screenChange     = Settings.System.getInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION);
             screenBean.setScreenAuto((screenMode == 1));
             screenBean.setScreenBrightness(screenBrightness);
             screenBean.setScreenAutoChange((screenChange == 1));
@@ -66,7 +68,7 @@ class ScreenInfo {
         Resources.Theme theme = context.getTheme();
         if (theme != null) {
             TypedValue typedValue = new TypedValue();
-            boolean result = theme.resolveAttribute(android.R.attr.windowFullscreen, typedValue, false);
+            boolean    result     = theme.resolveAttribute(android.R.attr.windowFullscreen, typedValue, false);
             if (result) {
                 typedValue.coerceToString();
                 if (typedValue.type == TypedValue.TYPE_INT_BOOLEAN) {
@@ -100,7 +102,7 @@ class ScreenInfo {
     private static boolean checkHasNavigationBar(Context context) {
         if (context instanceof Activity) {
             WindowManager windowManager = ((Activity) context).getWindowManager();
-            Display d = windowManager.getDefaultDisplay();
+            Display       d             = windowManager.getDefaultDisplay();
 
             DisplayMetrics realDisplayMetrics = new DisplayMetrics();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -108,13 +110,13 @@ class ScreenInfo {
             }
 
             int realHeight = realDisplayMetrics.heightPixels;
-            int realWidth = realDisplayMetrics.widthPixels;
+            int realWidth  = realDisplayMetrics.widthPixels;
 
             DisplayMetrics displayMetrics = new DisplayMetrics();
             d.getMetrics(displayMetrics);
 
             int displayHeight = displayMetrics.heightPixels;
-            int displayWidth = displayMetrics.widthPixels;
+            int displayWidth  = displayMetrics.widthPixels;
 
             return (realWidth - displayWidth) > 0 || (realHeight - displayHeight) > 0;
         }
@@ -123,14 +125,14 @@ class ScreenInfo {
 
 
     private static int getStatusBarHeight(Context context) {
-        Resources resources = context.getResources();
-        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+        Resources resources  = context.getResources();
+        int       resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
     }
 
     private static int getNavigationBarHeight(Context context) {
-        Resources resources = context.getResources();
-        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        Resources resources  = context.getResources();
+        int       resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
     }
 }

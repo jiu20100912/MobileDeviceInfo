@@ -21,12 +21,12 @@ public class BatteryBean extends BaseBean {
     /**
      * 电池状态
      */
-    private String status;
+    private int status;
 
     /**
      * 电池充电状态
      */
-    private String plugState;
+    private int plugState;
 
     /**
      * 电池健康状况
@@ -66,19 +66,19 @@ public class BatteryBean extends BaseBean {
         this.br = br;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public String getPlugState() {
+    public int getPlugState() {
         return plugState;
     }
 
-    public void setPlugState(String plugState) {
+    public void setPlugState(int plugState) {
         this.plugState = plugState;
     }
 
@@ -134,8 +134,8 @@ public class BatteryBean extends BaseBean {
     protected JSONObject toJSONObject() {
         try {
             jsonObject.put(BaseData.Battery.BR, isEmpty(br));
-            jsonObject.put(BaseData.Battery.STATUS, isEmpty(status));
-            jsonObject.put(BaseData.Battery.PLUG_STATE, isEmpty(plugState));
+            jsonObject.put(BaseData.Battery.STATUS, status);
+            jsonObject.put(BaseData.Battery.PLUG_STATE, plugState);
             jsonObject.put(BaseData.Battery.HEALTH, isEmpty(health));
             jsonObject.put(BaseData.Battery.PRESENT, present);
             jsonObject.put(BaseData.Battery.TECHNOLOGY, isEmpty(technology));

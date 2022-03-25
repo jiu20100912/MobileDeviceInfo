@@ -21,8 +21,8 @@ class BatteryInfo {
 
     @SuppressLint("PrivateApi")
     private static String getBatteryCapacity(Context context) {
-        Object mPowerProfile;
-        double batteryCapacity = 0;
+        Object       mPowerProfile;
+        double       batteryCapacity   = 0;
         final String powerProfileClass = "com.android.internal.os.PowerProfile";
 
         try {
@@ -46,8 +46,8 @@ class BatteryInfo {
             Intent batteryStatus = context.registerReceiver(null,
                     new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
             if (batteryStatus != null) {
-                int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                int    level        = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                int    scale        = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
                 double batteryLevel = -1;
                 if (level != -1 && scale != -1) {
                     batteryLevel = DoubleUtil.divide((double) level, (double) scale);
@@ -57,14 +57,14 @@ class BatteryInfo {
                 // ac=1, usb=2, wireless=4
                 int plugState = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
                 // unknown=1, good=2, overheat=3, dead=4, over voltage=5, unspecified failure=6, cold=7
-                int health = batteryStatus.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
-                boolean present = batteryStatus.getBooleanExtra(BatteryManager.EXTRA_PRESENT, false);
-                String technology = batteryStatus.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY);
-                int temperature = batteryStatus.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
-                int voltage = batteryStatus.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
-                batteryBean.setBr(DoubleUtil.mul(batteryLevel,100d)+ "%");
-                batteryBean.setStatus(batteryStatus(status));
-                batteryBean.setPlugState(batteryPlugged(plugState));
+                int     health      = batteryStatus.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
+                boolean present     = batteryStatus.getBooleanExtra(BatteryManager.EXTRA_PRESENT, false);
+                String  technology  = batteryStatus.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY);
+                int     temperature = batteryStatus.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
+                int     voltage     = batteryStatus.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
+                batteryBean.setBr(DoubleUtil.mul(batteryLevel, 100d) + "%");
+                batteryBean.setStatus(status);
+                batteryBean.setPlugState(plugState);
                 batteryBean.setHealth(batteryHealth(health));
                 batteryBean.setPresent(present);
                 batteryBean.setTechnology(technology);
@@ -101,7 +101,7 @@ class BatteryInfo {
                 healthBat = "overheat";
                 break;
             case BatteryManager.BATTERY_HEALTH_UNKNOWN:
-                healthBat = "unknown";
+                healthBat = "";
                 break;
             case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
                 healthBat = "unspecified";
@@ -128,7 +128,7 @@ class BatteryInfo {
                 healthBat = "notCharging";
                 break;
             case BatteryManager.BATTERY_STATUS_UNKNOWN:
-                healthBat = "unknown";
+                healthBat = "";
                 break;
             default:
                 break;

@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.mobile.mobileinfo"
-        minSdkVersion 14
-        targetSdkVersion 27
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 248
         versionName "2.4.8"
         multiDexEnabled true
@@ -38,10 +38,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':mobilehardware')
-    //网络工具库
-    implementation 'fairy.easy:httpmodel:1.0.5'
+//    //网络工具库
+//    implementation 'fairy.easy:httpmodel:1.0.5'
     //依赖外部网络库
-    implementation 'com.squareup.okhttp3:okhttp:4.1.0'
-    //OAID
-    implementation(name: 'miit_mdid_1.0.10', ext: 'aar')
+//    implementation 'com.squareup.okhttp3:okhttp:4.1.0'
 }

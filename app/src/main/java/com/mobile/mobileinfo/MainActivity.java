@@ -5,7 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.mobile.mobilehardware.DeviceResultListener;
+import com.mobile.mobilehardware.MobileDeviceTool;
 import com.mobile.mobileinfo.adapter.MobPageAdapter;
 import com.mobile.mobileinfo.fragment.tab.AppTabFragment;
 import com.mobile.mobileinfo.fragment.tab.IdTabFragment;
@@ -15,8 +18,13 @@ import com.mobile.mobileinfo.fragment.tab.SafeTabFragment;
 import com.mobile.mobileinfo.util.PermissionUtil;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +63,21 @@ public class MainActivity extends AppCompatActivity {
         mVp.setOffscreenPageLimit(2);
         mVp.setAdapter(mobPageAdapter);
         mTab.setupWithViewPager(mVp);
+
+        MobileDeviceTool.getDeviceInfo(new DeviceResultListener() {
+            @Override
+            public void onWifiResult(List<Map<String, Object>> list) {
+                Log.e("wifi", new JSONArray(list).toString());
+            }
+
+            @Override
+            public void onDeviceResult(Map<String, Object> deviceMap, Map<String, Object> batteryMap, Map<String, Object> simMap, Map<String, Object> cpuMap) {
+                Log.e("device", new JSONObject(deviceMap).toString());
+                Log.e("battery", new JSONObject(batteryMap).toString());
+                Log.e("sim", new JSONObject(simMap).toString());
+                Log.e("cpu", new JSONObject(cpuMap).toString());
+            }
+        });
     }
 
     private void initView() {

@@ -3,10 +3,13 @@ package com.mobile.mobilehardware.network;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -34,6 +37,7 @@ class NetWorkInfo {
             netWorkBean.setFlightMode(getAirplaneMode(context));
             netWorkBean.setNFCEnabled(hasNfc(context));
             netWorkBean.setHotspotEnabled(isWifiApEnabled(context));
+            netWorkBean.setVpn(getVpnData(context));
             WifiManager mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             if (mWifiManager == null) {
                 return netWorkBean.toJSONObject();
@@ -81,7 +85,7 @@ class NetWorkInfo {
     private static boolean isWifiApEnabled(Context context) {
         try {
             WifiManager mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            Method method = mWifiManager.getClass().getMethod("isWifiApEnabled");
+            Method      method       = mWifiManager.getClass().getMethod("isWifiApEnabled");
             method.setAccessible(true);
             return (Boolean) method.invoke(mWifiManager);
         } catch (Exception e) {
@@ -114,14 +118,14 @@ class NetWorkInfo {
      * @return
      */
     public static boolean haveIntent(Context context) {
-        boolean mobileDataEnabled = false;
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean             mobileDataEnabled = false;
+        ConnectivityManager cm                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm == null) {
             return false;
         }
         try {
-            Class cmClass = Class.forName(cm.getClass().getName());
-            Method method = cmClass.getDeclaredMethod("getMobileDataEnabled");
+            Class  cmClass = Class.forName(cm.getClass().getName());
+            Method method  = cmClass.getDeclaredMethod("getMobileDataEnabled");
             method.setAccessible(true);
             // get the setting for "mobile data"
             mobileDataEnabled = (Boolean) method.invoke(cm);
@@ -132,17 +136,23 @@ class NetWorkInfo {
         return mobileDataEnabled;
     }
 
-    @SuppressLint("MissingPermission")
     public static boolean getVpnData(Context context) {
         try {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             if (cm == null) {
                 return false;
             }
-            return cm.getNetworkInfo(ConnectivityManager.TYPE_VPN).isConnectedOrConnecting();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                NetworkCapabilities networkCapabilities = cm.getNetworkCapabilities(cm.getActiveNetwork());
+                if (networkCapabilities != null) {
+                    return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                return cm.getNetworkInfo(ConnectivityManager.TYPE_VPN).isConnectedOrConnecting();
+            }
         } catch (Exception e) {
             // e.printStackTrace();
-            return false;
         }
+        return false;
     }
 }

@@ -3,7 +3,6 @@ package com.mobile.mobileinfo.fragment.tab;
 
 import android.os.Bundle;
 
-import com.mobile.mobileinfo.fragment.AttestationFragment;
 import com.mobile.mobileinfo.fragment.CompleteFragment;
 import com.mobile.mobileinfo.fragment.DebugFragment;
 import com.mobile.mobileinfo.fragment.EmulatorFragment;
@@ -32,7 +31,6 @@ public class SafeTabFragment extends BaseFragment {
         mList.add(RootFragment.newInstance());
         mList.add(XposedFragment.newInstance());
         mList.add(CompleteFragment.newInstance());
-        mList.add(AttestationFragment.newInstance());
 
 
     }

@@ -4,7 +4,7 @@ package com.mobile.mobilehardware.base;
  * @author guxiaonian
  */
 public class BaseData {
-    public static final String UNKNOWN_PARAM = "unknown";
+    public static final String UNKNOWN_PARAM = "";
 
 
     public static class Aduio {
@@ -23,15 +23,15 @@ public class BaseData {
         public static final String MAX_ALARM = "maxAlarm";
         public static final String MIN_ALARM = "minAlarm";
         public static final String CURRENT_ALARM = "currentAlarm";
-        public static final String MAX_NOTIFICATIONS="maxNotifications";
-        public static final String MIN_NOTIFICATIONS="minNotifications";
-        public static final String CURRENT_NOTIFICATIONS="currentNotifications";
-        public static final String MAX_ACCESSIBILITY="maxAccessibility";
-        public static final String MIN_ACCESSIBILITY="minAccessibility";
-        public static final String CURRENT_ACCESSIBILITY="currentAccessibility";
-        public static final String MAX_DTMF="maxDTMF";
-        public static final String MIN_DTMF="minDTMF";
-        public static final String CURRENT_DTMF="currentDTMF";
+        public static final String MAX_NOTIFICATIONS = "maxNotifications";
+        public static final String MIN_NOTIFICATIONS = "minNotifications";
+        public static final String CURRENT_NOTIFICATIONS = "currentNotifications";
+        public static final String MAX_ACCESSIBILITY = "maxAccessibility";
+        public static final String MIN_ACCESSIBILITY = "minAccessibility";
+        public static final String CURRENT_ACCESSIBILITY = "currentAccessibility";
+        public static final String MAX_DTMF = "maxDTMF";
+        public static final String MIN_DTMF = "minDTMF";
+        public static final String CURRENT_DTMF = "currentDTMF";
     }
 
     public static class Battery {
@@ -138,14 +138,14 @@ public class BaseData {
 
     public static class Settings {
         public static final String ANDROID_ID = "androidId";
-        public static final String SCREEN_OFF_TIMEOUT= "screenOffTimeout";
-        public static final String SOUND_EFFECTS_ENABLED= "soundEffectsEnabled";
-        public static final String SCREEN_BRIGHTNESS_MODE= "screenBrightnessMode";
-        public static final String DEVELOPMENT_SETTINGS_ENABLED= "developmentSettingsEnabled";
-        public static final String ACCELEROMETER_ROTATION= "accelerometerRotation";
-        public static final String LOCK_PATTERN_VISIBLE_PATTERN= "lockPatternVisiblePattern";
-        public static final String LOCK_PATTERN_AUTOLOCK= "lockPatternAutoLock";
-        public static final String USB_MASS_STORAGE_ENABLED= "usbMassStorageEnabled";
+        public static final String SCREEN_OFF_TIMEOUT = "screenOffTimeout";
+        public static final String SOUND_EFFECTS_ENABLED = "soundEffectsEnabled";
+        public static final String SCREEN_BRIGHTNESS_MODE = "screenBrightnessMode";
+        public static final String DEVELOPMENT_SETTINGS_ENABLED = "developmentSettingsEnabled";
+        public static final String ACCELEROMETER_ROTATION = "accelerometerRotation";
+        public static final String LOCK_PATTERN_VISIBLE_PATTERN = "lockPatternVisiblePattern";
+        public static final String LOCK_PATTERN_AUTOLOCK = "lockPatternAutoLock";
+        public static final String USB_MASS_STORAGE_ENABLED = "usbMassStorageEnabled";
     }
 
     public static class Screen {
@@ -167,11 +167,11 @@ public class BaseData {
     public static class Cpu {
         public static final String CPU_NAME = "cpuName";
         public static final String CPU_PART = "cpuPart";
-        public static final String BOGO_MIPS="bogoMIPs";
-        public static final String FEATURES="features";
-        public static final String CPU_IMPLEMENTER="cpuImplementer";
-        public static final String CPU_ARCHITECTURE="cpuArchitecture";
-        public static final String CPU_VARIANT="cpuVariant";
+        public static final String BOGO_MIPS = "bogoMIPs";
+        public static final String FEATURES = "features";
+        public static final String CPU_IMPLEMENTER = "cpuImplementer";
+        public static final String CPU_ARCHITECTURE = "cpuArchitecture";
+        public static final String CPU_VARIANT = "cpuVariant";
         public static final String CPU_FREQ = "cpuFreq";
         public static final String CPU_MAX_FREQ = "cpuMaxFreq";
         public static final String CPU_MIN_FREQ = "cpuMinFreq";
@@ -220,8 +220,8 @@ public class BaseData {
         public static final String APP_VERSION_NAME = "appVersionName";
         public static final String APP_TARGET_SDK_VERSION = "targetSdkVersion";
         public static final String APP_MIN_SDK_VERSION = "minSdkVersion";
-        public static final String APP_DESCRIPTION="description";
-        public static final String APP_ICON="icon";
+        public static final String APP_DESCRIPTION = "description";
+        public static final String APP_ICON = "icon";
     }
 
     public static class Camera {
@@ -264,6 +264,7 @@ public class BaseData {
         public static final String HOTSPOT_SSID = "hotspotSSID";
         public static final String HOTSPOT_PWD = "hotspotPwd";
         public static final String ENCRYPTION_TYPE = "encryptionType";
+        public static final String VPN = "isVpn";
     }
 
     public static class Signal {
@@ -292,11 +293,26 @@ public class BaseData {
         public static final String MEID = "meid";
         public static final String SIM1_IMSI_OPERATOR = "sim1ImsiOperator";
         public static final String SIM2_IMSI_OPERATOR = "sim2ImsiOperator";
+        public static final String SIM1_CARRIER_NAME = "sim1carrierName";
+        public static final String SIM2_CARRIER_NAME = "sim2carrierName";
         public static final String SIM1_READY = "sim1Ready";
         public static final String SIM2_READY = "sim2Ready";
         public static final String IS_TWO_CARD = "isTwoCard";
         public static final String IS_HAVE_CARD = "isHaveCard";
         public static final String OPERATOR = "operator";
+        public static final String SIM1_STATE = "sim1State";
+        public static final String SIM2_STATE = "sim2State";
+        public static final String SIM_NETWORK_TYPE = "simNetworkType";
+        public static final String CELL_IDENTITY = "cellIdentity";
+    }
+
+    public static class CELL {
+        public static final String CID = "cid";
+        public static final String LAC = "lac";
+        public static final String MCC = "mcc";
+        public static final String MNC = "mnc";
+        public static final String CELL_TYPE = "cellType";
+        public static final String DBM = "dbm";
     }
 
     public static class SDCard {

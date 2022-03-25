@@ -5,7 +5,10 @@ import android.util.Log;
 import com.mobile.mobilehardware.base.BaseBean;
 import com.mobile.mobilehardware.base.BaseData;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * @author guxiaonian
@@ -59,6 +62,16 @@ public class SimCardBean extends BaseBean {
     private boolean sim1Ready;
 
     /**
+     * 卡1状态
+     */
+    private int sim1State;
+
+    /**
+     * 卡2状态
+     */
+    private int sim2State;
+
+    /**
      * 卡2是否激活
      */
     private boolean sim2Ready;
@@ -78,6 +91,11 @@ public class SimCardBean extends BaseBean {
      */
     private String operator;
 
+    /**
+     * sim卡网络类型
+     */
+    private String simNetworkType;
+
     private String sim1IccId;
     private String sim2IccId;
     private int sim1SimId = -1;
@@ -90,6 +108,7 @@ public class SimCardBean extends BaseBean {
     private String sim2mnc;
     private String sim1carrierName;
     private String sim2carrierName;
+    private JSONArray cellIdentityList;
 
     public String getSim1Imei() {
         return sim1Imei;
@@ -291,6 +310,38 @@ public class SimCardBean extends BaseBean {
         this.operator = operator;
     }
 
+    public String getSimNetworkType() {
+        return simNetworkType;
+    }
+
+    public void setSimNetworkType(String simNetworkType) {
+        this.simNetworkType = simNetworkType;
+    }
+
+    public int getSim1State() {
+        return sim1State;
+    }
+
+    public void setSim1State(int sim1State) {
+        this.sim1State = sim1State;
+    }
+
+    public int getSim2State() {
+        return sim2State;
+    }
+
+    public void setSim2State(int sim2State) {
+        this.sim2State = sim2State;
+    }
+
+    public JSONArray getCellIdentityList() {
+        return cellIdentityList;
+    }
+
+    public void setCellIdentityList(JSONArray cellIdentityList) {
+        this.cellIdentityList = cellIdentityList;
+    }
+
     @Override
     protected JSONObject toJSONObject() {
         try {
@@ -307,6 +358,9 @@ public class SimCardBean extends BaseBean {
             jsonObject.put(BaseData.SimCard.IS_TWO_CARD, isTwoCard);
             jsonObject.put(BaseData.SimCard.IS_HAVE_CARD, isHaveCard);
             jsonObject.put(BaseData.SimCard.OPERATOR, isEmpty(operator));
+            jsonObject.put(BaseData.SimCard.SIM1_STATE, sim1State);
+            jsonObject.put(BaseData.SimCard.SIM2_STATE, sim2State);
+            jsonObject.put(BaseData.SimCard.CELL_IDENTITY, cellIdentityList);
             jsonObject.put("sim1IccId", isEmpty(sim1IccId));
             jsonObject.put("sim2IccId", isEmpty(sim2IccId));
             jsonObject.put("sim1SimId", sim1SimId);
@@ -317,8 +371,9 @@ public class SimCardBean extends BaseBean {
             jsonObject.put("sim2mcc", isEmpty(sim2mcc));
             jsonObject.put("sim1mnc", isEmpty(sim1mnc));
             jsonObject.put("sim2mnc", isEmpty(sim2mnc));
-            jsonObject.put("sim1carrierName", isEmpty(sim1carrierName));
-            jsonObject.put("sim2carrierName", isEmpty(sim2carrierName));
+            jsonObject.put(BaseData.SimCard.SIM1_CARRIER_NAME, isEmpty(sim1carrierName));
+            jsonObject.put(BaseData.SimCard.SIM2_CARRIER_NAME, isEmpty(sim2carrierName));
+            jsonObject.put(BaseData.SimCard.SIM_NETWORK_TYPE, isEmpty(simNetworkType));
 
         } catch (Exception e) {
             Log.e(TAG, e.toString());

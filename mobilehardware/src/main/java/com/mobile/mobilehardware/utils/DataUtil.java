@@ -38,7 +38,7 @@ public class DataUtil {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context
                 .TELEPHONY_SERVICE);
         if (telephonyManager == null) {
-            return "unknown";
+            return "";
         }
         int networkType = telephonyManager.getNetworkType();
         switch (networkType) {

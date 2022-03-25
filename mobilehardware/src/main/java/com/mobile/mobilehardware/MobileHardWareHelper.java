@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.Window;
 
 import com.mobile.mobilehardware.applist.ListAppHelper;
-import com.mobile.mobilehardware.attestation.AttestationSdk;
 import com.mobile.mobilehardware.audio.AudioHelper;
 import com.mobile.mobilehardware.band.BandHelper;
 import com.mobile.mobilehardware.bluetooth.BluetoothHelper;
@@ -339,19 +338,9 @@ public class MobileHardWareHelper {
     /**
      * 获取WIFI列表清单文件
      *
-     * @see https://github.com/guxiaonian/MobileInfo/wiki/WifiList
      */
     public static void getWifiListInfo(WifiScanListener wifiScanListener) {
         WifiHelper.wifiList(wifiScanListener);
-    }
-
-    /**
-     * 获取证书链认证
-     *
-     * @return @see https://github.com/guxiaonian/MobileInfo/wiki/WifiList
-     */
-    public static JSONObject getKeyAttestation() {
-        return AttestationSdk.getKeyAttestation();
     }
 
 }
