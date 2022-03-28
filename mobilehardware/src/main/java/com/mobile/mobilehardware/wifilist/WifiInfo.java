@@ -27,10 +27,11 @@ class WifiInfo {
             throw new NullPointerException("the WifiScanListener is null");
         }
         final long        startTime   = System.currentTimeMillis();
-        final WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        final WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         final WifiBean    wifiBean    = new WifiBean();
         if (wifiManager == null) {
             wifiScanListener.onResult(wifiBean.toJSONObject());
+            return;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             wifiScanListener.onResult(wifiBean.toJSONObject());

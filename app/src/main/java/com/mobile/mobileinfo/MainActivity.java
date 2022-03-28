@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -72,10 +73,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDeviceResult(Map<String, Object> deviceMap, Map<String, Object> batteryMap, Map<String, Object> simMap, Map<String, Object> cpuMap) {
-                Log.e("device", new JSONObject(deviceMap).toString());
-                Log.e("battery", new JSONObject(batteryMap).toString());
-                Log.e("sim", new JSONObject(simMap).toString());
-                Log.e("cpu", new JSONObject(cpuMap).toString());
+                Map<String,Object> map=new HashMap<>();
+                map.put("device",deviceMap);
+                map.put("battery",batteryMap);
+                map.put("simInfo",simMap);
+                map.put("cpuInfo",cpuMap);
+                Log.e("onDeviceAll", new JSONObject(map).toString());
             }
         });
     }

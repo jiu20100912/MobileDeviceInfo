@@ -163,11 +163,8 @@ class CpuInfo {
 
             result = text.trim();
 
-        } catch (FileNotFoundException e) {
-
-            Log.i(TAG, e.toString());
-
         } catch (IOException e) {
+
             Log.i(TAG, e.toString());
 
         }
@@ -220,7 +217,7 @@ class CpuInfo {
 
     private static String getMinCpuFreq() {
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         ProcessBuilder cmd;
 
@@ -240,7 +237,7 @@ class CpuInfo {
 
             while (in.read(re) != -1) {
 
-                result = result + new String(re);
+                result.append(new String(re));
 
             }
 
@@ -250,11 +247,11 @@ class CpuInfo {
 
             Log.i(TAG, ex.toString());
 
-            result = "N/A";
+            result = new StringBuilder("N/A");
 
         }
 
-        return result.trim();
+        return result.toString().trim();
 
     }
 }

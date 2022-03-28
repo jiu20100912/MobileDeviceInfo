@@ -8,6 +8,8 @@ import com.mobile.mobilehardware.build.BuildHelper;
 import com.mobile.mobilehardware.cpu.CpuHelper;
 import com.mobile.mobilehardware.debug.DebugHelper;
 import com.mobile.mobilehardware.emulator.EmulatorHelper;
+import com.mobile.mobilehardware.local.LocalHelper;
+import com.mobile.mobilehardware.memory.MemoryHelper;
 import com.mobile.mobilehardware.network.NetWorkHelper;
 import com.mobile.mobilehardware.base.BaseData;
 import com.mobile.mobilehardware.root.RootHelper;
@@ -46,6 +48,8 @@ public class MobileDeviceTool {
             JSONObject signalInfo    = SignalHelper.mobGetNetRssi();
             JSONObject simInfo       = SimCardHelper.mobileSimInfo();
             JSONObject cpuInfo       = CpuHelper.mobGetCpuInfo();
+            JSONObject memoryInfo    = MemoryHelper.getMemoryInfo();
+            JSONObject local         = LocalHelper.mobGetMobLocal();
 
             WifiHelper.wifiList(jsonObject -> {
                 List<Map<String, Object>> wifiList = new ArrayList<>();
@@ -59,10 +63,10 @@ public class MobileDeviceTool {
                             JSONObject          jb    = wifiScanResult.getJSONObject(i);
                             String              bssid = jb.optString("BSSID");
                             Map<String, Object> map   = new HashMap<>();
-                            map.put("wifiSsid", jb.optString("SSID"));
-                            map.put("wifiBssid", bssid);
-                            map.put("wifiCurrent", bssid.equals(curBSSID));
-                            map.put("wifiMac", mac);
+                            map.put("ssid", jb.optString("SSID"));
+                            map.put("bssid", bssid);
+                            map.put("current", bssid.equals(curBSSID));
+                            map.put("mac", mac);
                             wifiList.add(map);
                         }
                     }
@@ -101,6 +105,19 @@ public class MobileDeviceTool {
                 deviceBaseMap.put("buildHost", buildInfo.optString(BaseData.Build.HOST));
                 deviceBaseMap.put("radio", buildInfo.optString(BaseData.Build.RADIO));
                 deviceBaseMap.put("buildTime", buildInfo.optLong(BaseData.Build.TIME));
+                deviceBaseMap.put("model", buildInfo.optString(BaseData.Build.MODEL));
+                deviceBaseMap.put("manufacturer", buildInfo.optString(BaseData.Build.MANUFACTURER));
+
+
+                deviceBaseMap.put("ram", memoryInfo.optString(BaseData.Memory.RAM_MEMORY));
+                deviceBaseMap.put("rom", memoryInfo.optString(BaseData.Memory.SDCARD_REAL_MEMORY_TOTAL));
+                deviceBaseMap.put("canUseRom", memoryInfo.optString(BaseData.Memory.RAM_AVAIL_MEMORY));
+                deviceBaseMap.put("canUseRam", memoryInfo.optString(BaseData.Memory.ROM_MEMORY_AVAILABLE));
+
+
+                deviceBaseMap.put("mac", signalInfo.optString(BaseData.Signal.MAC_ADDRESS));
+
+                deviceBaseMap.put("language", local.optString(BaseData.Local.LANGUAGE));
 
                 deviceBaseMap.put("baseBand", bandInfo.optString(BaseData.Band.BASE_BAND));
 
