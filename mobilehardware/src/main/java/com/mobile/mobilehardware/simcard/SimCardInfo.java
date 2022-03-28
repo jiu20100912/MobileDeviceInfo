@@ -14,7 +14,7 @@ class SimCardInfo {
     private static final String TAG = SimCardInfo.class.getSimpleName();
 
 
-    static JSONObject getMobSimInfo(Context context) {
+    static SimCardBean getMobSimInfo(Context context) {
         SimCardBean simCardBean = new SimCardBean();
         try {
             simCardBean.setHaveCard(hasSimCard(context));
@@ -31,7 +31,7 @@ class SimCardInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return simCardBean.toJSONObject();
+        return simCardBean;
 
     }
 

@@ -11,6 +11,10 @@ import org.json.JSONObject;
 public class NetWorkHelper extends NetWorkInfo {
 
     public static JSONObject mobGetMobNetWork() {
+        return mobGetMobNetWorkBean().toJSONObject();
+    }
+
+    public static NetWorkBean mobGetMobNetWorkBean() {
         return getMobNetWork(MobileHardWareHelper.getContext());
     }
 

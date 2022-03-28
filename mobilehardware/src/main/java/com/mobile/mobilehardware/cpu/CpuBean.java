@@ -171,26 +171,4 @@ public class CpuBean extends BaseBean {
         this.cpuPart = cpuPart;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Cpu.CPU_NAME, isEmpty(cpuName));
-            jsonObject.put(BaseData.Cpu.CPU_PART, isEmpty(cpuPart));
-            jsonObject.put(BaseData.Cpu.BOGO_MIPS, isEmpty(bogomips));
-            jsonObject.put(BaseData.Cpu.FEATURES, isEmpty(features));
-            jsonObject.put(BaseData.Cpu.CPU_IMPLEMENTER, isEmpty(cpuImplementer));
-            jsonObject.put(BaseData.Cpu.CPU_ARCHITECTURE, isEmpty(cpuArchitecture));
-            jsonObject.put(BaseData.Cpu.CPU_VARIANT, isEmpty(cpuVariant));
-            jsonObject.put(BaseData.Cpu.CPU_FREQ, isEmpty(cpuFreq));
-            jsonObject.put(BaseData.Cpu.CPU_MAX_FREQ, isEmpty(cpuMaxFreq));
-            jsonObject.put(BaseData.Cpu.CPU_MIN_FREQ, isEmpty(cpuMinFreq));
-            jsonObject.put(BaseData.Cpu.CPU_HARDWARE, isEmpty(cpuHardware));
-            jsonObject.put(BaseData.Cpu.CPU_CORES, cpuCores);
-            jsonObject.put(BaseData.Cpu.CPU_TEMP, isEmpty(cpuTemp));
-            jsonObject.put(BaseData.Cpu.CPU_ABI, isEmpty(cpuAbi));
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

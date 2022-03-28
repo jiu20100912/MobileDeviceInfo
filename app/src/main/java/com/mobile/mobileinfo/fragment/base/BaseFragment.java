@@ -109,8 +109,8 @@ public abstract class BaseFragment extends Fragment {
 
 
     public List<Param> getListParam(String key, Object value) {
-        List<Param> list = new ArrayList<>();
-        Param param = new Param();
+        List<Param> list  = new ArrayList<>();
+        Param       param = new Param();
         param.setValue(value + "");
         param.setKey(key);
         list.add(param);
@@ -122,8 +122,8 @@ public abstract class BaseFragment extends Fragment {
         try {
             Iterator iterator = jsonObject.keys();
             while (iterator.hasNext()) {
-                Param param = new Param();
-                String key = (String) iterator.next();
+                Param  param = new Param();
+                String key   = (String) iterator.next();
                 param.setKey(key);
                 if (jsonObject.get(key) instanceof Drawable) {
                     param.setValue(jsonObject.get(key));
@@ -142,12 +142,12 @@ public abstract class BaseFragment extends Fragment {
         List<Param> list = new ArrayList<>();
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
-                Param param = new Param();
+                Param      param      = new Param();
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 if (jsonObject.has("isSystem")) {
                     if (!jsonObject.getBoolean("isSystem")) {
-                        param.setValue(jsonObject.get("icon"));
-                        jsonObject.remove("icon");
+                        param.setValue("");
+//                        jsonObject.remove("icon");
                         String key = StringUtil.formatString(jsonObject.toString());
                         param.setKey(key);
                         list.add(param);
@@ -170,7 +170,7 @@ public abstract class BaseFragment extends Fragment {
         List<Param> list = new ArrayList<>();
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
-                Param param = new Param();
+                Param      param      = new Param();
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 param.setKey(i + 1 + "");
                 String value = jsonObject.toString();

@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
 class NetWorkInfo {
     private static final String TAG = NetWorkInfo.class.getSimpleName();
 
-    static JSONObject getMobNetWork(Context context) {
+    static NetWorkBean getMobNetWork(Context context) {
         NetWorkBean netWorkBean = new NetWorkBean();
         try {
             netWorkBean.setType(DataUtil.networkTypeALL(context));
@@ -40,11 +40,11 @@ class NetWorkInfo {
             netWorkBean.setVpn(getVpnData(context));
             WifiManager mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             if (mWifiManager == null) {
-                return netWorkBean.toJSONObject();
+                return netWorkBean;
             }
             WifiConfiguration config = getHotPotConfig(mWifiManager);
             if (config == null) {
-                return netWorkBean.toJSONObject();
+                return netWorkBean;
             }
             netWorkBean.setHotspotSSID(config.SSID);
             netWorkBean.setHotspotPwd(config.preSharedKey);
@@ -52,7 +52,7 @@ class NetWorkInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return netWorkBean.toJSONObject();
+        return netWorkBean;
     }
 
 

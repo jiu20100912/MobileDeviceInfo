@@ -17,6 +17,10 @@ public class SimCardHelper extends SimCardInfo {
      * @return 运营商返回
      */
     public static JSONObject mobileSimInfo() {
+        return mobileSimInfoBean().toJSONObject();
+    }
+
+    public static SimCardBean mobileSimInfoBean() {
         return getMobSimInfo(MobileHardWareHelper.getContext());
     }
 }

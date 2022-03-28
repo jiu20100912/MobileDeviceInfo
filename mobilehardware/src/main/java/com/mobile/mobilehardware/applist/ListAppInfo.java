@@ -21,18 +21,18 @@ class ListAppInfo {
 
     private static final String TAG = ListAppInfo.class.getSimpleName();
 
-    static List<JSONObject> getMobListApp(Context context) {
-        List<JSONObject> appLists = new ArrayList<>();
+    static List<ListAppBean> getMobListApp(Context context) {
+        List<ListAppBean> appLists = new ArrayList<>();
         try {
-            PackageManager packageManager = context.getPackageManager();
+            PackageManager    packageManager  = context.getPackageManager();
             List<PackageInfo> packageInfoList = packageManager.getInstalledPackages(0);
             for (PackageInfo packageInfo : packageInfoList) {
                 ListAppBean listAppBean = new ListAppBean();
                 listAppBean.setPackageName(packageInfo.packageName);
                 listAppBean.setAppVersionName(packageInfo.versionName);
                 listAppBean.setAppName(packageInfo.applicationInfo.loadLabel(packageManager).toString());
-                listAppBean.setDescription(packageInfo.applicationInfo.loadDescription(packageManager));
-                listAppBean.setIcon(packageInfo.applicationInfo.loadIcon(packageManager));
+//                listAppBean.setDescription(packageInfo.applicationInfo.loadDescription(packageManager));
+//                listAppBean.setIcon(packageInfo.applicationInfo.loadIcon(packageManager));
                 listAppBean.setTargetSdkVersion(packageInfo.applicationInfo.targetSdkVersion);
                 listAppBean.setLastUpdateTime(packageInfo.lastUpdateTime);
                 listAppBean.setFirstInstallTime(packageInfo.firstInstallTime);
@@ -46,7 +46,7 @@ class ListAppInfo {
                 }
                 listAppBean.setPackageSign(PackageSignUtil.getSign(context, listAppBean.getPackageName()));
                 listAppBean.setSystem(!((ApplicationInfo.FLAG_SYSTEM & packageInfo.applicationInfo.flags) == 0));
-                appLists.add(listAppBean.toJSONObject());
+                appLists.add(listAppBean);
             }
         } catch (Exception e) {
             Log.e(TAG, e.toString());

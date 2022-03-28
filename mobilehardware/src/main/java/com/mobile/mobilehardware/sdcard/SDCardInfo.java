@@ -22,7 +22,7 @@ class SDCardInfo {
 
     private static final String TAG = SDCardInfo.class.getSimpleName();
 
-    static JSONObject getSdCard() {
+    static SDCardBean getSdCard() {
         SDCardBean sdCardBean = new SDCardBean();
         try {
             sdCardBean.setSDCardEnable(isSDCardEnableByEnvironment());
@@ -33,7 +33,7 @@ class SDCardInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return sdCardBean.toJSONObject();
+        return sdCardBean;
     }
 
     private static String getSDCardPathByEnvironment() {

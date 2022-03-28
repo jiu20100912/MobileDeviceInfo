@@ -18,6 +18,10 @@ public class SignalHelper extends SignalInfo {
      * @return
      */
     public static JSONObject mobGetNetRssi() {
+        return mobGetNetRssiBean().toJSONObject();
+    }
+
+    public static SignalBean mobGetNetRssiBean() {
         return getNetRssi(MobileHardWareHelper.getContext());
     }
 

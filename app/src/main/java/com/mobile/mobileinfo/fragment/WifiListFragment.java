@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobile.mobilehardware.wifilist.WifiBean;
 import com.mobile.mobilehardware.wifilist.WifiHelper;
 import com.mobile.mobilehardware.wifilist.WifiScanListener;
 import com.mobile.mobileinfo.R;
@@ -40,12 +41,14 @@ public class WifiListFragment extends Fragment {
     private ListView mListView;
     private MobListAdapter adapter;
     private TextView textView;
+
     public static WifiListFragment newInstance() {
-        Bundle args = new Bundle();
+        Bundle           args     = new Bundle();
         WifiListFragment fragment = new WifiListFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -99,9 +102,10 @@ public class WifiListFragment extends Fragment {
 
     private void getParam() {
         WifiHelper.wifiList(new WifiScanListener() {
+
             @Override
-            public void onResult(JSONObject jsonObject) {
-                adapter.addAll(getListParam(jsonObject));
+            public void onResult(WifiBean bean) {
+                adapter.addAll(getListParam(bean.toJSONObject()));
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -109,8 +113,8 @@ public class WifiListFragment extends Fragment {
 
 
     public List<Param> getListParam(String key, Object value) {
-        List<Param> list = new ArrayList<>();
-        Param param = new Param();
+        List<Param> list  = new ArrayList<>();
+        Param       param = new Param();
         param.setValue(value + "");
         param.setKey(key);
         list.add(param);
@@ -122,8 +126,8 @@ public class WifiListFragment extends Fragment {
         try {
             Iterator iterator = jsonObject.keys();
             while (iterator.hasNext()) {
-                Param param = new Param();
-                String key = (String) iterator.next();
+                Param  param = new Param();
+                String key   = (String) iterator.next();
                 param.setKey(key);
                 if (jsonObject.get(key) instanceof Drawable) {
                     param.setValue(jsonObject.get(key));
@@ -142,7 +146,7 @@ public class WifiListFragment extends Fragment {
         List<Param> list = new ArrayList<>();
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
-                Param param = new Param();
+                Param      param      = new Param();
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 if (jsonObject.has("isSystem")) {
                     if (!jsonObject.getBoolean("isSystem")) {

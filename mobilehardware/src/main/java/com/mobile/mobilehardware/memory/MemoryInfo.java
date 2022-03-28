@@ -38,7 +38,7 @@ class MemoryInfo {
      * @param context
      * @return
      */
-    static JSONObject memoryInfo(Context context) {
+    static MemoryBean memoryInfo(Context context) {
         MemoryBean memoryBean = new MemoryBean();
         try {
             memoryBean.setRamMemory(getTotalMemory(context));
@@ -51,7 +51,7 @@ class MemoryInfo {
         } catch (Exception e) {
             Log.i(TAG, e.toString());
         }
-        return memoryBean.toJSONObject();
+        return memoryBean;
     }
 
     /**

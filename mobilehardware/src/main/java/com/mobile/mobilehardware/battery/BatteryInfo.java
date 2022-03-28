@@ -40,7 +40,7 @@ class BatteryInfo {
         return batteryCapacity + "mAh";
     }
 
-    static JSONObject getBattery(Context context) {
+    static BatteryBean getBattery(Context context) {
         BatteryBean batteryBean = new BatteryBean();
         try {
             Intent batteryStatus = context.registerReceiver(null,
@@ -79,7 +79,7 @@ class BatteryInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return batteryBean.toJSONObject();
+        return batteryBean;
     }
 
     private static String batteryHealth(int health) {

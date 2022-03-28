@@ -107,22 +107,4 @@ public class SettingsBean extends BaseBean {
         this.androidId = androidId;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Settings.ANDROID_ID, isEmpty(androidId));
-            jsonObject.put(BaseData.Settings.SCREEN_OFF_TIMEOUT, isEmpty(screenOffTimeout));
-            jsonObject.put(BaseData.Settings.SOUND_EFFECTS_ENABLED, isEmpty(soundEffectsEnabled));
-            jsonObject.put(BaseData.Settings.SCREEN_BRIGHTNESS_MODE, isEmpty(screenBrightnessMode));
-            jsonObject.put(BaseData.Settings.DEVELOPMENT_SETTINGS_ENABLED, isEmpty(developmentSettingsEnabled));
-            jsonObject.put(BaseData.Settings.ACCELEROMETER_ROTATION, isEmpty(accelerometerRotation));
-            jsonObject.put(BaseData.Settings.LOCK_PATTERN_VISIBLE_PATTERN, isEmpty(lockPatternVisiblePattern));
-            jsonObject.put(BaseData.Settings.LOCK_PATTERN_AUTOLOCK, isEmpty(lockPatternAutolock));
-            jsonObject.put(BaseData.Settings.USB_MASS_STORAGE_ENABLED, isEmpty(usbMassStorageEnabled));
-            jsonObject.put(BaseData.Debug.IS_ALLOW_MOCK_LOCATION, allowMockLocation);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

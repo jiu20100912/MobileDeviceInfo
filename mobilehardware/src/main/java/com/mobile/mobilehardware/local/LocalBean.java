@@ -39,14 +39,4 @@ public class LocalBean extends BaseBean {
         this.language = language;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Local.COUNTRY, isEmpty(country));
-            jsonObject.put(BaseData.Local.LANGUAGE, isEmpty(language));
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

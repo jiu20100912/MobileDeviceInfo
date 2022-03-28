@@ -100,20 +100,4 @@ public class MemoryBean extends BaseBean {
     public void setSdCardMemoryTotal(String sdCardMemoryTotal) {
         this.sdCardMemoryTotal = sdCardMemoryTotal;
     }
-
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Memory.RAM_MEMORY, isEmpty(ramMemory));
-            jsonObject.put(BaseData.Memory.RAM_AVAIL_MEMORY, isEmpty(ramAvailMemory));
-            jsonObject.put(BaseData.Memory.ROM_MEMORY_AVAILABLE, isEmpty(romMemoryAvailable));
-            jsonObject.put(BaseData.Memory.ROM_MEMORY_TOTAL, isEmpty(romMemoryTotal));
-            jsonObject.put(BaseData.Memory.SDCARD_MEMORY_AVAILABLE, isEmpty(sdCardMemoryAvailable));
-            jsonObject.put(BaseData.Memory.SDCARD_MEMORY_TOTAL, isEmpty(sdCardMemoryTotal));
-            jsonObject.put(BaseData.Memory.SDCARD_REAL_MEMORY_TOTAL, isEmpty(sdCardRealMemoryTotal));
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

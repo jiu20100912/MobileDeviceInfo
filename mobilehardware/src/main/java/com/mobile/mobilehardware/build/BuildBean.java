@@ -339,38 +339,4 @@ public class BuildBean extends BaseBean {
         this.securityPatch = securityPatch;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Build.BOARD, isEmpty(board));
-            jsonObject.put(BaseData.Build.BOOTLOADER, isEmpty(bootloader));
-            jsonObject.put(BaseData.Build.BRAND, isEmpty(brand));
-            jsonObject.put(BaseData.Build.DEVICE, isEmpty(device));
-            jsonObject.put(BaseData.Build.DISPLAY, isEmpty(display));
-            jsonObject.put(BaseData.Build.FINGERPRINT, isEmpty(fingerprint));
-            jsonObject.put(BaseData.Build.HARDWARE, isEmpty(hardware));
-            jsonObject.put(BaseData.Build.HOST, isEmpty(host));
-            jsonObject.put(BaseData.Build.ID, isEmpty(id));
-            jsonObject.put(BaseData.Build.MANUFACTURER, isEmpty(manufacturer));
-            jsonObject.put(BaseData.Build.MODEL, isEmpty(model));
-            jsonObject.put(BaseData.Build.PRODUCT, isEmpty(product));
-            jsonObject.put(BaseData.Build.RADIO, isEmpty(radio));
-            jsonObject.put(BaseData.Build.SERIAL, isEmpty(serial));
-            jsonObject.put(BaseData.Build.TAGS, isEmpty(tags));
-            jsonObject.put(BaseData.Build.TIME, time);
-            jsonObject.put(BaseData.Build.TYPE, isEmpty(type));
-            jsonObject.put(BaseData.Build.USER, isEmpty(user));
-            jsonObject.put(BaseData.Build.OS_VERSION, isEmpty(osVersion));
-            jsonObject.put(BaseData.Build.RELEASE_VERSION, isEmpty(releaseVersion));
-            jsonObject.put(BaseData.Build.CODE_NAME, isEmpty(codeName));
-            jsonObject.put(BaseData.Build.INCREMENTAL, isEmpty(incremental));
-            jsonObject.put(BaseData.Build.SDK_INT, sdkInt);
-            jsonObject.put(BaseData.Build.PREVIEW_SDK_INT, previewSdkInt);
-            jsonObject.put(BaseData.Build.SECURITY_PATCH, isEmpty(securityPatch));
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
-
 }

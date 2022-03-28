@@ -16,7 +16,8 @@ public class CameraHelper extends CameraInfo {
      *
      * @return
      */
-    public static JSONObject getCameraInfo() {
+
+    public static CameraBean getCameraInfo() {
         return cameraInfo(MobileHardWareHelper.getContext());
     }
 

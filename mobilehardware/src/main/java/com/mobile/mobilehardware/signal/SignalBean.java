@@ -195,26 +195,4 @@ public class SignalBean extends BaseBean {
         this.proxyPort = proxyPort;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Signal.TYPE, isEmpty(type));
-            jsonObject.put(BaseData.Signal.BSSID, isEmpty(bssid));
-            jsonObject.put(BaseData.Signal.SSID, isEmpty(ssid));
-            jsonObject.put(BaseData.Signal.N_IP_ADDRESS, isEmpty(nIpAddress));
-            jsonObject.put(BaseData.Signal.N_IP_ADDRESS_IPV6, isEmpty(nIpAddressIpv6));
-            jsonObject.put(BaseData.Signal.MAC_ADDRESS, isEmpty(macAddress));
-            jsonObject.put(BaseData.Signal.NETWORK_ID, networkId);
-            jsonObject.put(BaseData.Signal.LINK_SPEED, isEmpty(linkSpeed));
-            jsonObject.put(BaseData.Signal.RSSI, rssi);
-            jsonObject.put(BaseData.Signal.LEVEL, level);
-            jsonObject.put(BaseData.Signal.SUPPLICANT_STATE, isEmpty(supplicantState));
-            jsonObject.put(BaseData.Signal.PROXY, proxy);
-            jsonObject.put(BaseData.Signal.PROXY_ADDRESS, isEmpty(proxyAddress));
-            jsonObject.put(BaseData.Signal.PROXY_PORT, isEmpty(proxyPort));
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

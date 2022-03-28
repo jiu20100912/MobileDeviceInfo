@@ -6,12 +6,14 @@ import com.mobile.mobilehardware.base.BaseBean;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.List;
+
 /**
  * @author guxiaonian
  */
 public class WifiBean extends BaseBean {
     private boolean wifiScanStatus;
-    private JSONArray wifiScanResult;
+    private List<WifiResultBean> wifiScanResult;
     private long time;
 
     public long getTime() {
@@ -30,25 +32,12 @@ public class WifiBean extends BaseBean {
         this.wifiScanStatus = wifiScanStatus;
     }
 
-    public JSONArray getWifiScanResult() {
+    public List<WifiResultBean> getWifiScanResult() {
         return wifiScanResult;
     }
 
-    public void setWifiScanResult(JSONArray wifiScanResult) {
+    public void setWifiScanResult(List<WifiResultBean> wifiScanResult) {
         this.wifiScanResult = wifiScanResult;
-    }
-
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put("wifiScanStatus", wifiScanStatus);
-            jsonObject.put("wifiScanResult", wifiScanResult);
-            jsonObject.put("time", time);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return super.toJSONObject();
     }
 
     public static class WifiResultBean extends BaseBean {
@@ -87,21 +76,6 @@ public class WifiBean extends BaseBean {
 
         public void setLevel(int level) {
             this.level = level;
-        }
-
-        @Override
-        protected JSONObject toJSONObject() {
-            try {
-                jsonObject.put("SSID", isEmpty(SSID));
-                jsonObject.put("BSSID", isEmpty(BSSID));
-                jsonObject.put("capabilities", isEmpty(capabilities));
-                jsonObject.put("level", level);
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return super.toJSONObject();
         }
     }
 

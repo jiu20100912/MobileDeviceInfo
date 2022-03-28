@@ -58,18 +58,7 @@ public class SDCardBean extends BaseBean {
         this.sDCardPath = sDCardPath;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.SDCard.IS_SDCARD_ENABLE, isSDCardEnable);
-            jsonObject.put(BaseData.SDCard.SDCARD_PATH, isEmpty(sDCardPath));
-            jsonObject.put("isExtendedMemory", isExtendedMemory);
-            jsonObject.put("extendedMemoryPath", isEmpty(extendedMemoryPath));
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
+
 
 
 }

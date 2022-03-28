@@ -22,7 +22,7 @@ import java.util.Locale;
 class MoreOpenInfo {
     private static final String TAG = MoreOpenInfo.class.getSimpleName();
 
-    static JSONObject checkVirtualInfo(Context context) {
+    static MoreOpenBean checkVirtualInfo(Context context) {
         MoreOpenBean moreOpenBean = new MoreOpenBean();
         try {
             moreOpenBean.setCheckByPrivateFilePath(checkByPrivateFilePath(context));
@@ -32,7 +32,7 @@ class MoreOpenInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return moreOpenBean.toJSONObject();
+        return moreOpenBean;
     }
 
     /**

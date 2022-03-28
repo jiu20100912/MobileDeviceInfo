@@ -17,6 +17,10 @@ public class MemoryHelper extends MemoryInfo {
      * @return
      */
     public static JSONObject getMemoryInfo() {
+        return getMemoryInfoBean().toJSONObject();
+    }
+
+    public static MemoryBean getMemoryInfoBean() {
         return memoryInfo(MobileHardWareHelper.getContext());
     }
 

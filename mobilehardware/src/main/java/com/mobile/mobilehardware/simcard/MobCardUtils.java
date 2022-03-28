@@ -229,7 +229,7 @@ public class MobCardUtils {
         }
 
 
-        JSONArray cellIdentityBeanList = new JSONArray();
+        List<CellIdentityBean> cellIdentityBeanList = new ArrayList<>();
 
         TelephonyManager tm    = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         List<CellInfo>   infos = tm.getAllCellInfo();
@@ -315,7 +315,7 @@ public class MobCardUtils {
                 bean.setLac(lac);
                 bean.setType(type);
                 bean.setDbm(rssi);
-                cellIdentityBeanList.put(bean.toJSONObject());
+                cellIdentityBeanList.add(bean);
             }
 
             Log.d("card", "" + mcc + ":" + mnc + ":" + cellId + ":" + lac + ":" + type + ":" + rssi);

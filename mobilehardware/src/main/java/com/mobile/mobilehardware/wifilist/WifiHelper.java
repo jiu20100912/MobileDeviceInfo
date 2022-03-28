@@ -12,4 +12,8 @@ public class WifiHelper extends WifiInfo {
         getWifiList(MobileHardWareHelper.getContext(), wifiScanListener);
     }
 
+    public static void wifiListBean(WifiScanListener wifiScanListener) {
+        getWifiList(MobileHardWareHelper.getContext(), wifiScanListener);
+    }
+
 }

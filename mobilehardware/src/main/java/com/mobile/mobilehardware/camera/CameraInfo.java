@@ -16,6 +16,9 @@ import android.util.Size;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @author guxiaonian
@@ -26,15 +29,15 @@ class CameraInfo {
 
     private static final String TAG = CameraInfo.class.getSimpleName();
 
-    static JSONObject cameraInfo(Context context) {
-        CameraBean cameraBean = new CameraBean();
-        JSONArray jsonArray = new JSONArray();
+    static CameraBean cameraInfo(Context context) {
+        CameraBean                      cameraBean = new CameraBean();
+        List<CameraBean.CameraInfoBean> list       = new ArrayList<>();
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 CameraManager manager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
                 for (String cameraId : manager.getCameraIdList()) {
-                    CameraBean.CameraInfoBean cameraInfoBean = new CameraBean.CameraInfoBean();
-                    CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
+                    CameraBean.CameraInfoBean cameraInfoBean  = new CameraBean.CameraInfoBean();
+                    CameraCharacteristics     characteristics = manager.getCameraCharacteristics(cameraId);
                     if (CameraCharacteristics.LENS_FACING != null) {
                         Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
                         //摄像头位置 后置 前置 外置
@@ -49,7 +52,7 @@ class CameraInfo {
                     if (CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP != null) {
                         StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
                         if (map != null) {
-                            int[] ints = map.getOutputFormats();
+                            int[]     ints                   = map.getOutputFormats();
                             JSONArray jsonArrayOutputFormats = new JSONArray();
                             for (int i : ints) {
                                 jsonArrayOutputFormats.put(getFormat(i));
@@ -290,7 +293,7 @@ class CameraInfo {
                     }
                     //TODO 此相机设备支持的JPEG缩略图尺寸列表
                     if (CameraCharacteristics.JPEG_AVAILABLE_THUMBNAIL_SIZES != null) {
-                        Size[] jpegAvailableThumbnailSizes = characteristics.get(CameraCharacteristics.JPEG_AVAILABLE_THUMBNAIL_SIZES);
+                        Size[]    jpegAvailableThumbnailSizes          = characteristics.get(CameraCharacteristics.JPEG_AVAILABLE_THUMBNAIL_SIZES);
                         JSONArray jsonArrayJpegAvailableThumbnailSizes = new JSONArray();
                         if (jpegAvailableThumbnailSizes != null && jpegAvailableThumbnailSizes.length != 0) {
                             for (Size s : jpegAvailableThumbnailSizes) {
@@ -316,16 +319,16 @@ class CameraInfo {
                     //TODO 此相机设备支持的中性密度滤镜值列表
                     if (CameraCharacteristics.LENS_INFO_AVAILABLE_FILTER_DENSITIES != null) {
                         float[] lensInfoAvailableFilterDensities = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FILTER_DENSITIES);
-                        if(lensInfoAvailableFilterDensities!=null&&lensInfoAvailableFilterDensities.length!=0){
+                        if (lensInfoAvailableFilterDensities != null && lensInfoAvailableFilterDensities.length != 0) {
                             cameraInfoBean.setLensInfoAvailableFilterDensities(new JSONArray(lensInfoAvailableFilterDensities));
                         }
                     }
                     //TODO 此相机设备支持的焦距列表
                     if (CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS != null) {
                         float[] lensInfoAvailableFocalLengths = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS);
-                       if(lensInfoAvailableFocalLengths!=null&&lensInfoAvailableFocalLengths.length!=0){
-                           cameraInfoBean.setLensInfoAvailableFocalLengths(new JSONArray(lensInfoAvailableFocalLengths));
-                       }
+                        if (lensInfoAvailableFocalLengths != null && lensInfoAvailableFocalLengths.length != 0) {
+                            cameraInfoBean.setLensInfoAvailableFocalLengths(new JSONArray(lensInfoAvailableFocalLengths));
+                        }
                     }
                     //TODO 本相机设备支持的光学防抖（OIS）模式列表
                     if (CameraCharacteristics.LENS_INFO_AVAILABLE_OPTICAL_STABILIZATION != null) {
@@ -356,9 +359,9 @@ class CameraInfo {
                     //TODO 本相机设备固有校准的参数
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && CameraCharacteristics.LENS_INTRINSIC_CALIBRATION != null) {
                         float[] lensIntrinsicCalibration = characteristics.get(CameraCharacteristics.LENS_INTRINSIC_CALIBRATION);
-                       if(lensIntrinsicCalibration!=null&&lensIntrinsicCalibration.length!=0){
-                           cameraInfoBean.setLensIntrinsicCalibration(new JSONArray(lensIntrinsicCalibration));
-                       }
+                        if (lensIntrinsicCalibration != null && lensIntrinsicCalibration.length != 0) {
+                            cameraInfoBean.setLensIntrinsicCalibration(new JSONArray(lensIntrinsicCalibration));
+                        }
                     }
                     //TODO 镜头姿势
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P && CameraCharacteristics.LENS_POSE_REFERENCE != null) {
@@ -368,16 +371,16 @@ class CameraInfo {
                     //TODO 相机相对于传感器坐标系的方向
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && CameraCharacteristics.LENS_POSE_ROTATION != null) {
                         float[] lensPoseRotation = characteristics.get(CameraCharacteristics.LENS_POSE_ROTATION);
-                        if(lensPoseRotation!=null&&lensPoseRotation.length!=0){
+                        if (lensPoseRotation != null && lensPoseRotation.length != 0) {
                             cameraInfoBean.setLensPoseRotation(new JSONArray(lensPoseRotation));
                         }
                     }
                     //TODO 相机光学中心的位置
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && CameraCharacteristics.LENS_POSE_TRANSLATION != null) {
                         float[] lensPoseTranslation = characteristics.get(CameraCharacteristics.LENS_POSE_TRANSLATION);
-                      if(lensPoseTranslation!=null&&lensPoseTranslation.length!=0){
-                          cameraInfoBean.setLensPoseTranslation(new JSONArray(lensPoseTranslation));
-                      }
+                        if (lensPoseTranslation != null && lensPoseTranslation.length != 0) {
+                            cameraInfoBean.setLensPoseTranslation(new JSONArray(lensPoseTranslation));
+                        }
                     }
                     //TODO 帧时间戳同步
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P && CameraCharacteristics.LOGICAL_MULTI_CAMERA_SENSOR_SYNC_TYPE != null) {
@@ -655,15 +658,14 @@ class CameraInfo {
                         }
                     }
 
-
-                    jsonArray.put(cameraInfoBean.toJSONObject());
+                    list.add(cameraInfoBean);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        cameraBean.setCameraInfo(jsonArray);
-        return cameraBean.toJSONObject();
+        cameraBean.setCameraInfo(list);
+        return cameraBean;
     }
 
     private static String getAvailableToneMapModes(int availableToneMapModes) {

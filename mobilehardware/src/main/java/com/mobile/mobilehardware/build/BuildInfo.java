@@ -17,7 +17,7 @@ class BuildInfo {
     private static final String TAG = BuildInfo.class.getSimpleName();
 
     @SuppressLint({"HardwareIds", "MissingPermission"})
-    static JSONObject getBuildInfo() {
+    static BuildBean getBuildInfo() {
         BuildBean buildBean = new BuildBean();
         try {
             buildBean.setBoard(Build.BOARD);
@@ -57,10 +57,10 @@ class BuildInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return putNativeJson(buildBean.toJSONObject());
+        return buildBean;
     }
 
-    private static JSONObject putNativeJson(JSONObject jsonObject) {
+    public static JSONObject putNativeJson(JSONObject jsonObject) {
         try {
             putJson(jsonObject, "dhcp.wlan0.dns1",true);
             putJson(jsonObject, "dhcp.wlan0.gateway",true);

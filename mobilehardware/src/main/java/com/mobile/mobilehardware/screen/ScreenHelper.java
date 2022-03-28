@@ -16,6 +16,10 @@ public class ScreenHelper extends ScreenInfo{
      * @return
      */
     public static JSONObject mobGetMobScreen( Window window) {
+        return mobGetMobScreenBean(window).toJSONObject();
+    }
+
+    public static ScreenBean mobGetMobScreenBean( Window window) {
         return getMobScreen(MobileHardWareHelper.getContext(),window);
     }
 

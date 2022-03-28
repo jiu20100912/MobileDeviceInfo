@@ -13,6 +13,10 @@ public class CpuHelper extends CpuInfo {
      * @return
      */
     public static JSONObject mobGetCpuInfo() {
+        return mobGetCpuInfoBean().toJSONObject();
+    }
+
+    public static CpuBean mobGetCpuInfoBean() {
         return getCpuInfo();
     }
 

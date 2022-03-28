@@ -17,6 +17,10 @@ public class PackageHelper extends PackageInfo {
      * @return 包信息
      */
     public static JSONObject getPackageInfo() {
+        return getPackageInfoBean().toJSONObject();
+    }
+
+    public static PackageBean getPackageInfoBean() {
         return packageInfo(MobileHardWareHelper.getContext());
     }
 

@@ -5,6 +5,7 @@ import com.mobile.mobilehardware.MobileHardWareHelper;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,15 @@ public class ListAppHelper extends ListAppInfo {
      * @return 应用列表
      */
     public static List<JSONObject> mobListApp() {
+        List<JSONObject>  list         = new ArrayList<>();
+        List<ListAppBean> listAppBeans = mobListAppBean();
+        for (int i = 0; i < listAppBeans.size(); i++) {
+            list.add(listAppBeans.get(i).toJSONObject());
+        }
+        return list;
+    }
+
+    public static List<ListAppBean> mobListAppBean() {
         return getMobListApp(MobileHardWareHelper.getContext());
     }
 }

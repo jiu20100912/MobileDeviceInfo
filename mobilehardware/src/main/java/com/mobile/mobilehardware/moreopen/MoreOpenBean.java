@@ -62,16 +62,4 @@ public class MoreOpenBean extends BaseBean {
         this.checkByHasSameUid = checkByHasSameUid;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.MoreOpen.CHECK_BY_PRIVATE_FILE_PATH, checkByPrivateFilePath);
-            jsonObject.put(BaseData.MoreOpen.CHECK_BY_MULTIAPK_PACKAGE_NAME, checkByMultiApkPackageName);
-            jsonObject.put(BaseData.MoreOpen.CHECK_BY_HAS_SAMEUID, checkByHasSameUid);
-            jsonObject.put("checkLs", checkLs);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

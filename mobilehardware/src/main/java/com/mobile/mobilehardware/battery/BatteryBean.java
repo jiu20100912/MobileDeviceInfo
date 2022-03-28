@@ -130,21 +130,4 @@ public class BatteryBean extends BaseBean {
         this.power = power;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Battery.BR, isEmpty(br));
-            jsonObject.put(BaseData.Battery.STATUS, status);
-            jsonObject.put(BaseData.Battery.PLUG_STATE, plugState);
-            jsonObject.put(BaseData.Battery.HEALTH, isEmpty(health));
-            jsonObject.put(BaseData.Battery.PRESENT, present);
-            jsonObject.put(BaseData.Battery.TECHNOLOGY, isEmpty(technology));
-            jsonObject.put(BaseData.Battery.TEMPERATURE, isEmpty(temperature));
-            jsonObject.put(BaseData.Battery.VOLTAGE, isEmpty(voltage));
-            jsonObject.put(BaseData.Battery.POWER, isEmpty(power));
-        } catch (Exception e) {
-            Log.e(TAG,e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

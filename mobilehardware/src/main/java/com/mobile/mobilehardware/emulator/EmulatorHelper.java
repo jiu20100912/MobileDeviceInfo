@@ -20,6 +20,11 @@ public class EmulatorHelper extends EmulatorInfo {
      */
 
     public static JSONObject mobCheckEmulator() {
+        return mobCheckEmulatorBean().toJSONObject();
+
+    }
+
+    public static EmulatorBean mobCheckEmulatorBean() {
         return checkEmulator(MobileHardWareHelper.getContext());
 
     }

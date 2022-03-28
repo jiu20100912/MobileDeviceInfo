@@ -61,16 +61,5 @@ public class BandBean extends BaseBean {
         this.linuxBand = linuxBand;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Band.BASE_BAND, isEmpty(baseBand));
-            jsonObject.put(BaseData.Band.INNER_BAND, isEmpty(innerBand));
-            jsonObject.put(BaseData.Band.LINUX_BAND, isEmpty(linuxBand));
-            jsonObject.put(BaseData.Band.DETAIL_LINUX_BAND, isEmpty(detailLinuxBand));
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
+
 }

@@ -46,7 +46,7 @@ class SignalInfo {
      * @param context
      * @return
      */
-    static JSONObject getNetRssi(Context context) {
+    static SignalBean getNetRssi(Context context) {
         SignalBean signalBean = new SignalBean();
         try {
             String netWorkType = DataUtil.networkTypeALL(context);
@@ -59,7 +59,7 @@ class SignalInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return signalBean.toJSONObject();
+        return signalBean;
 
 
     }

@@ -17,6 +17,10 @@ public class DebugHelper extends DebugInfo {
      * @return
      */
     public static JSONObject getDebuggingData() {
+        return getDebuggingDataBean().toJSONObject();
+    }
+
+    public static DebugBean getDebuggingDataBean() {
         return getDebugData(MobileHardWareHelper.getContext());
     }
 

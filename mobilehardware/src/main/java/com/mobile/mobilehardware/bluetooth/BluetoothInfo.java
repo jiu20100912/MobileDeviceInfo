@@ -25,13 +25,13 @@ class BluetoothInfo {
     private static final String TAG = BluetoothInfo.class.getSimpleName();
 
     @SuppressLint("MissingPermission")
-    static JSONObject getMobBluetooth(Context context) {
+    static BluetoothBean getMobBluetooth(Context context) {
         BluetoothBean bluetoothBean = new BluetoothBean();
         try {
             bluetoothBean.setBluetoothAddress(Settings.Secure.getString(context.getContentResolver(), "bluetooth_address"));
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             if (bluetoothAdapter == null) {
-                return bluetoothBean.toJSONObject();
+                return bluetoothBean;
             }
             if (TextUtils.isEmpty(bluetoothBean.getBluetoothAddress()) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 try {
@@ -56,20 +56,20 @@ class BluetoothInfo {
             bluetoothBean.setEnabled(bluetoothAdapter.isEnabled());
             bluetoothBean.setPhoneName(bluetoothAdapter.getName());
             Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-            List<JSONObject>     list          = new ArrayList<>();
+            List<BluetoothBean.DeviceBean>     list          = new ArrayList<>();
             if (pairedDevices.size() > 0) {
                 for (BluetoothDevice device : pairedDevices) {
                     BluetoothBean.DeviceBean deviceBean = new BluetoothBean.DeviceBean();
                     deviceBean.setAddress(device.getAddress());
                     deviceBean.setName(device.getName());
-                    list.add(deviceBean.toJSONObject());
+                    list.add(deviceBean);
                 }
             }
             bluetoothBean.setDevice(list);
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return bluetoothBean.toJSONObject();
+        return bluetoothBean;
     }
 
 }

@@ -29,7 +29,7 @@ class BandInfo {
      *
      * @return
      */
-    static JSONObject getBandInfo() {
+    static BandBean getBandInfo() {
         BandBean bandBean = new BandBean();
         try {
             bandBean.setBaseBand(getBaseband());
@@ -40,7 +40,7 @@ class BandInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return bandBean.toJSONObject();
+        return bandBean;
     }
 
     /**

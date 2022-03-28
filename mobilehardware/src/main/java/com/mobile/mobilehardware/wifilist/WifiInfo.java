@@ -14,6 +14,7 @@ import android.os.Build;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,11 +31,11 @@ class WifiInfo {
         final WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         final WifiBean    wifiBean    = new WifiBean();
         if (wifiManager == null) {
-            wifiScanListener.onResult(wifiBean.toJSONObject());
+            wifiScanListener.onResult(wifiBean);
             return;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            wifiScanListener.onResult(wifiBean.toJSONObject());
+            wifiScanListener.onResult(wifiBean);
         }
         BroadcastReceiver wifiScanReceiver = new BroadcastReceiver() {
             @Override
@@ -52,18 +53,18 @@ class WifiInfo {
     private static void scanSuccess(WifiManager wifiManager, WifiBean wifiBean, long startTime, WifiScanListener wifiScanListener) {
         List<ScanResult> results = wifiManager.getScanResults();
         wifiBean.setWifiScanStatus(results.size() != 0);
-        JSONArray scanArray = new JSONArray();
+        List<WifiBean.WifiResultBean> l = new ArrayList<>();
         for (ScanResult scanResult : results) {
             WifiBean.WifiResultBean wifiResultBean = new WifiBean.WifiResultBean();
             wifiResultBean.setBSSID(scanResult.BSSID);
             wifiResultBean.setSSID(scanResult.SSID);
             wifiResultBean.setCapabilities(scanResult.capabilities);
             wifiResultBean.setLevel(scanResult.level);
-            scanArray.put(wifiResultBean.toJSONObject());
+            l.add(wifiResultBean);
         }
-        wifiBean.setWifiScanResult(scanArray);
+        wifiBean.setWifiScanResult(l);
         wifiBean.setTime(System.currentTimeMillis() - startTime);
-        wifiScanListener.onResult(wifiBean.toJSONObject());
+        wifiScanListener.onResult(wifiBean);
 
     }
 

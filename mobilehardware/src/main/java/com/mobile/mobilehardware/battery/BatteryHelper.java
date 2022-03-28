@@ -16,6 +16,10 @@ public class BatteryHelper extends BatteryInfo {
      * @return 电池JSON
      */
     public static JSONObject mobGetBattery() {
+        return mobGetBatteryBean().toJSONObject();
+    }
+
+    public static BatteryBean mobGetBatteryBean() {
         return getBattery(MobileHardWareHelper.getContext());
     }
 

@@ -6,5 +6,5 @@ import org.json.JSONObject;
  * @author guxiaonian
  */
 public interface WifiScanListener {
-    void onResult(JSONObject jsonObject);
+    void onResult(WifiBean bean);
 }

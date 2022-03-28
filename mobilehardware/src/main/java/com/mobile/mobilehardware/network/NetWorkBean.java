@@ -140,22 +140,4 @@ public class NetWorkBean extends BaseBean {
         this.encryptionType = encryptionType;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.NetWork.TYPE, isEmpty(type));
-            jsonObject.put(BaseData.NetWork.NETWORK_AVAILABLE, networkAvailable);
-            jsonObject.put(BaseData.NetWork.HAVE_INTENT, haveIntent);
-            jsonObject.put(BaseData.NetWork.IS_FLIGHT_MODE, isFlightMode);
-            jsonObject.put(BaseData.NetWork.IS_NFC_ENABLED, isNFCEnabled);
-            jsonObject.put(BaseData.NetWork.IS_HOTSPOT_ENABLED, isHotspotEnabled);
-            jsonObject.put(BaseData.NetWork.HOTSPOT_SSID, isEmpty(hotspotSSID));
-            jsonObject.put(BaseData.NetWork.HOTSPOT_PWD, isEmpty(hotspotPwd));
-            jsonObject.put(BaseData.NetWork.ENCRYPTION_TYPE, isEmpty(encryptionType));
-            jsonObject.put(BaseData.NetWork.VPN, isVpn);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

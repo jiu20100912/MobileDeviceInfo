@@ -14,6 +14,10 @@ public class BuildHelper extends BuildInfo {
      * @return
      */
     public static JSONObject mobGetBuildInfo() {
+        return putNativeJson(mobGetBuildInfoBean().toJSONObject());
+    }
+
+    public static BuildBean mobGetBuildInfoBean() {
         return getBuildInfo();
     }
 }

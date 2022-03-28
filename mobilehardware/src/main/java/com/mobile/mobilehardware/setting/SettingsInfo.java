@@ -15,7 +15,7 @@ class SettingsInfo {
     private static final String TAG = SettingsInfo.class.getSimpleName();
 
     @SuppressLint("HardwareIds")
-    static JSONObject getMobSettings(Context context) {
+    static SettingsBean getMobSettings(Context context) {
         SettingsBean settingsBean = new SettingsBean();
         try {
             settingsBean.setAndroidId(Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
@@ -32,7 +32,7 @@ class SettingsInfo {
             Log.e(TAG, e.toString());
 
         }
-        return settingsBean.toJSONObject();
+        return settingsBean;
     }
 
 

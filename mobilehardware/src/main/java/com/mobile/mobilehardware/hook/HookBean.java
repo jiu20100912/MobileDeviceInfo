@@ -16,52 +16,40 @@ public class HookBean extends BaseBean {
     /**
      * Xposed详细信息
      */
-    private JSONObject isHaveXposed;
+    private XposedBean isHaveXposed;
 
     /**
      * Substrate详细信息
      */
-    private JSONObject isHaveSubstrate;
+    private SubstrateBean isHaveSubstrate;
 
     /**
      * Frida详细信息
      */
-    private JSONObject isHaveFrida;
+    private FridaBean isHaveFrida;
 
-    public JSONObject getIsHaveXposed() {
+    public XposedBean getIsHaveXposed() {
         return isHaveXposed;
     }
 
-    public void setIsHaveXposed(JSONObject isHaveXposed) {
+    public void setIsHaveXposed(XposedBean isHaveXposed) {
         this.isHaveXposed = isHaveXposed;
     }
 
-    public JSONObject getIsHaveSubstrate() {
+    public SubstrateBean getIsHaveSubstrate() {
         return isHaveSubstrate;
     }
 
-    public void setIsHaveSubstrate(JSONObject isHaveSubstrate) {
+    public void setIsHaveSubstrate(SubstrateBean isHaveSubstrate) {
         this.isHaveSubstrate = isHaveSubstrate;
     }
 
-    public JSONObject getIsHaveFrida() {
+    public FridaBean getIsHaveFrida() {
         return isHaveFrida;
     }
 
-    public void setIsHaveFrida(JSONObject isHaveFrida) {
+    public void setIsHaveFrida(FridaBean isHaveFrida) {
         this.isHaveFrida = isHaveFrida;
-    }
-
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Hook.IS_HAVE_XPOSED, isHaveXposed);
-            jsonObject.put(BaseData.Hook.IS_HAVE_SUBSTRATE, isHaveSubstrate);
-            jsonObject.put(BaseData.Hook.IS_HAVE_FRIDA, isHaveFrida);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
     }
 
     public static class XposedBean extends BaseBean {
@@ -190,25 +178,6 @@ public class HookBean extends BaseBean {
         public void setCheckXposedBridge(boolean checkXposedBridge) {
             this.checkXposedBridge = checkXposedBridge;
         }
-
-        @Override
-        protected JSONObject toJSONObject() {
-            try {
-                jsonObject.put(BaseData.Hook.Xposed.CHECK_XPOSED_PACKAGE, checkXposedPackage);
-                jsonObject.put(BaseData.Hook.Xposed.CHECK_XPOSED_HOOK_METHOD, checkXposedHookMethod);
-                jsonObject.put(BaseData.Hook.Xposed.CHECK_XPOSED_JARS, checkXposedJars);
-                jsonObject.put(BaseData.Hook.Xposed.CHECK_CLASSLOADER, checkClassLoader);
-                jsonObject.put(BaseData.Hook.Xposed.CHECK_NATIVE_METHOD, checkNativeMethod);
-                jsonObject.put(BaseData.Hook.Xposed.CHECK_SYSTEM, checkSystem);
-                jsonObject.put(BaseData.Hook.Xposed.CHECK_EXEC_LIB, checkExecLib);
-                jsonObject.put(BaseData.Hook.Xposed.CHECK_XPOSED_BRIDGE, checkXposedBridge);
-                jsonObject.put("cMap", cMap);
-                jsonObject.put("cPackage", cPackage);
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
-            return super.toJSONObject();
-        }
     }
 
 
@@ -280,22 +249,6 @@ public class HookBean extends BaseBean {
         public void setCheckSubstrateJars(boolean checkSubstrateJars) {
             this.checkSubstrateJars = checkSubstrateJars;
         }
-
-        @Override
-        protected JSONObject toJSONObject() {
-            try {
-                jsonObject.put(BaseData.Hook.Substrate.CHECK_SUBSTRATE_PACKAGE, checkSubstratePackage);
-                jsonObject.put(BaseData.Hook.Substrate.CHECK_SUBSTRATE_HOOK_METHOD, checkSubstrateHookMethod);
-                jsonObject.put(BaseData.Hook.Substrate.CHECK_SUBSTRATE_JARS, checkSubstrateJars);
-                jsonObject.put("cSo",cSo);
-                jsonObject.put("cMap",cMap);
-                jsonObject.put("cPackage",cPackage);
-
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
-            return super.toJSONObject();
-        }
     }
 
     public static class FridaBean extends BaseBean {
@@ -334,21 +287,6 @@ public class HookBean extends BaseBean {
 
         public void setCheckFridaJars(boolean checkFridaJars) {
             this.checkFridaJars = checkFridaJars;
-        }
-
-        @Override
-        protected JSONObject toJSONObject() {
-            try {
-                jsonObject.put(BaseData.Hook.Frida.CHECK_RUNNING_PROCESSES, checkRunningProcesses);
-                jsonObject.put(BaseData.Hook.Frida.CHECK_FRIDA_JARS, checkFridaJars);
-                jsonObject.put("cMap", cMap);
-
-
-
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
-            return super.toJSONObject();
         }
     }
 }

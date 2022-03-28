@@ -158,24 +158,4 @@ public class PackageBean extends BaseBean {
         this.appVersionName = appVersionName;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.App.APP_NAME, isEmpty(appName));
-            jsonObject.put(BaseData.App.LAUNCHER_APP_NAME, isEmpty(launcherAppName));
-            jsonObject.put(BaseData.App.LAST_UPDATE_TIME, lastUpdateTime);
-            jsonObject.put(BaseData.App.FIRST_INSTALL_TIME, firstInstallTime);
-            jsonObject.put(BaseData.App.PACKAGE_NAME, isEmpty(packageName));
-            jsonObject.put(BaseData.App.PACKAGE_SIGN, isEmpty(packageSign));
-            jsonObject.put(BaseData.App.APP_VERSION_CODE, appVersionCode);
-            jsonObject.put(BaseData.App.APP_VERSION_NAME, isEmpty(appVersionName));
-            jsonObject.put(BaseData.App.APP_TARGET_SDK_VERSION, targetSdkVersion);
-            jsonObject.put(BaseData.App.APP_MIN_SDK_VERSION, minSdkVersion);
-            jsonObject.put(BaseData.App.APP_DESCRIPTION, isEmpty(description));
-            jsonObject.put(BaseData.App.APP_ICON, icon);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

@@ -2,24 +2,34 @@ package com.mobile.mobilehardware;
 
 import android.os.SystemClock;
 
+import com.mobile.mobilehardware.band.BandBean;
 import com.mobile.mobilehardware.band.BandHelper;
+import com.mobile.mobilehardware.battery.BatteryBean;
 import com.mobile.mobilehardware.battery.BatteryHelper;
+import com.mobile.mobilehardware.build.BuildBean;
 import com.mobile.mobilehardware.build.BuildHelper;
+import com.mobile.mobilehardware.cpu.CpuBean;
 import com.mobile.mobilehardware.cpu.CpuHelper;
+import com.mobile.mobilehardware.debug.DebugBean;
 import com.mobile.mobilehardware.debug.DebugHelper;
+import com.mobile.mobilehardware.emulator.EmulatorBean;
 import com.mobile.mobilehardware.emulator.EmulatorHelper;
+import com.mobile.mobilehardware.local.LocalBean;
 import com.mobile.mobilehardware.local.LocalHelper;
+import com.mobile.mobilehardware.memory.MemoryBean;
 import com.mobile.mobilehardware.memory.MemoryHelper;
+import com.mobile.mobilehardware.network.NetWorkBean;
 import com.mobile.mobilehardware.network.NetWorkHelper;
-import com.mobile.mobilehardware.base.BaseData;
 import com.mobile.mobilehardware.root.RootHelper;
+import com.mobile.mobilehardware.screen.ScreenBean;
 import com.mobile.mobilehardware.screen.ScreenHelper;
+import com.mobile.mobilehardware.signal.SignalBean;
 import com.mobile.mobilehardware.signal.SignalHelper;
+import com.mobile.mobilehardware.simcard.CellIdentityBean;
+import com.mobile.mobilehardware.simcard.SimCardBean;
 import com.mobile.mobilehardware.simcard.SimCardHelper;
+import com.mobile.mobilehardware.wifilist.WifiBean;
 import com.mobile.mobilehardware.wifilist.WifiHelper;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,32 +48,32 @@ public class MobileDeviceTool {
 
         try {
 
-            JSONObject netWork       = NetWorkHelper.mobGetMobNetWork();
-            JSONObject debuggingData = DebugHelper.getDebuggingData();
-            JSONObject emulator      = EmulatorHelper.mobCheckEmulator();
-            JSONObject screen        = ScreenHelper.mobGetMobScreen(null);
-            JSONObject buildInfo     = BuildHelper.mobGetBuildInfo();
-            JSONObject bandInfo      = BandHelper.mobGetBandInfo();
-            JSONObject battery       = BatteryHelper.mobGetBattery();
-            JSONObject signalInfo    = SignalHelper.mobGetNetRssi();
-            JSONObject simInfo       = SimCardHelper.mobileSimInfo();
-            JSONObject cpuInfo       = CpuHelper.mobGetCpuInfo();
-            JSONObject memoryInfo    = MemoryHelper.getMemoryInfo();
-            JSONObject local         = LocalHelper.mobGetMobLocal();
+            NetWorkBean  netWork       = NetWorkHelper.mobGetMobNetWorkBean();
+            DebugBean    debuggingData = DebugHelper.getDebuggingDataBean();
+            EmulatorBean emulator      = EmulatorHelper.mobCheckEmulatorBean();
+            ScreenBean   screen        = ScreenHelper.mobGetMobScreenBean(null);
+            BuildBean    buildInfo     = BuildHelper.mobGetBuildInfoBean();
+            BandBean     bandInfo      = BandHelper.mobGetBandInfoBean();
+            BatteryBean  battery       = BatteryHelper.mobGetBatteryBean();
+            SignalBean   signalInfo    = SignalHelper.mobGetNetRssiBean();
+            SimCardBean  simInfo       = SimCardHelper.mobileSimInfoBean();
+            CpuBean      cpuInfo       = CpuHelper.mobGetCpuInfoBean();
+            MemoryBean   memoryInfo    = MemoryHelper.getMemoryInfoBean();
+            LocalBean    local         = LocalHelper.mobGetMobLocalBean();
 
             WifiHelper.wifiList(jsonObject -> {
                 List<Map<String, Object>> wifiList = new ArrayList<>();
                 try {
-                    String    curBSSID       = signalInfo.optString(BaseData.Signal.BSSID);
-                    String    mac            = signalInfo.optString(BaseData.Signal.MAC_ADDRESS);
-                    JSONArray wifiScanResult = jsonObject.optJSONArray("wifiScanResult");
-                    if (wifiScanResult != null && wifiScanResult.length() > 0) {
-                        int length = wifiScanResult.length();
+                    String                        curBSSID       = signalInfo.isEmpty(signalInfo.getBssid());
+                    String                        mac            = signalInfo.isEmpty(signalInfo.getMacAddress());
+                    List<WifiBean.WifiResultBean> wifiScanResult = jsonObject.getWifiScanResult();
+                    if (wifiScanResult != null && wifiScanResult.size() > 0) {
+                        int length = wifiScanResult.size();
                         for (int i = 0; i < length; i++) {
-                            JSONObject          jb    = wifiScanResult.getJSONObject(i);
-                            String              bssid = jb.optString("BSSID");
-                            Map<String, Object> map   = new HashMap<>();
-                            map.put("ssid", jb.optString("SSID"));
+                            WifiBean.WifiResultBean jb    = wifiScanResult.get(i);
+                            String                  bssid = jb.isEmpty(jb.getBSSID());
+                            Map<String, Object>     map   = new HashMap<>();
+                            map.put("ssid", jb.isEmpty(jb.getSSID()));
                             map.put("bssid", bssid);
                             map.put("current", bssid.equals(curBSSID));
                             map.put("mac", mac);
@@ -83,53 +93,53 @@ public class MobileDeviceTool {
 
             try {
 
-                deviceBaseMap.put("isVpn", netWork.optBoolean(BaseData.NetWork.VPN));
-                deviceBaseMap.put("isDebug", debuggingData.optBoolean(BaseData.Debug.IS_OPEN_DEBUG));
-                deviceBaseMap.put("isEmulator", emulator.optBoolean(BaseData.Emulator.CHECK_BUILD));
+                deviceBaseMap.put("isVpn", netWork.isVpn());
+                deviceBaseMap.put("isDebug", debuggingData.isOpenDebug());
+                deviceBaseMap.put("isEmulator", emulator.isCheckBuild());
                 deviceBaseMap.put("isRoot", RootHelper.mobileRoot());
 
-                deviceBaseMap.put("serial", buildInfo.optString(BaseData.Build.SERIAL));
-                deviceBaseMap.put("product", buildInfo.optString(BaseData.Build.PRODUCT));
-                deviceBaseMap.put("brand", buildInfo.optString(BaseData.Build.BRAND));
-                deviceBaseMap.put("hardware", buildInfo.optString(BaseData.Build.HARDWARE));
-                deviceBaseMap.put("device", buildInfo.optString(BaseData.Build.DEVICE));
-                deviceBaseMap.put("buildType", buildInfo.optString(BaseData.Build.TYPE));
-                deviceBaseMap.put("buildTags", buildInfo.optString(BaseData.Build.TAGS));
-                deviceBaseMap.put("sdkInt", buildInfo.optInt(BaseData.Build.SDK_INT));
-                deviceBaseMap.put("buildUser", buildInfo.optString(BaseData.Build.USER));
-                deviceBaseMap.put("board", buildInfo.optString(BaseData.Build.BOARD));
-                deviceBaseMap.put("display", buildInfo.optString(BaseData.Build.DISPLAY));
-                deviceBaseMap.put("hardwareId", buildInfo.optString(BaseData.Build.ID));
-                deviceBaseMap.put("bootloader", buildInfo.optString(BaseData.Build.BOOTLOADER));
-                deviceBaseMap.put("fingerPrint", buildInfo.optString(BaseData.Build.FINGERPRINT));
-                deviceBaseMap.put("buildHost", buildInfo.optString(BaseData.Build.HOST));
-                deviceBaseMap.put("radio", buildInfo.optString(BaseData.Build.RADIO));
-                deviceBaseMap.put("buildTime", buildInfo.optLong(BaseData.Build.TIME));
-                deviceBaseMap.put("model", buildInfo.optString(BaseData.Build.MODEL));
-                deviceBaseMap.put("manufacturer", buildInfo.optString(BaseData.Build.MANUFACTURER));
+                deviceBaseMap.put("serial", buildInfo.isEmpty(buildInfo.getSerial()));
+                deviceBaseMap.put("product", buildInfo.isEmpty(buildInfo.getProduct()));
+                deviceBaseMap.put("brand", buildInfo.isEmpty(buildInfo.getBrand()));
+                deviceBaseMap.put("hardware", buildInfo.isEmpty(buildInfo.getHardware()));
+                deviceBaseMap.put("device", buildInfo.isEmpty(buildInfo.getDevice()));
+                deviceBaseMap.put("buildType", buildInfo.isEmpty(buildInfo.getType()));
+                deviceBaseMap.put("buildTags", buildInfo.isEmpty(buildInfo.getTags()));
+                deviceBaseMap.put("sdkInt", buildInfo.getSdkInt());
+                deviceBaseMap.put("buildUser", buildInfo.isEmpty(buildInfo.getUser()));
+                deviceBaseMap.put("board", buildInfo.isEmpty(buildInfo.getBoard()));
+                deviceBaseMap.put("display", buildInfo.isEmpty(buildInfo.getDisplay()));
+                deviceBaseMap.put("hardwareId", buildInfo.isEmpty(buildInfo.getId()));
+                deviceBaseMap.put("bootloader", buildInfo.isEmpty(buildInfo.getBootloader()));
+                deviceBaseMap.put("fingerPrint", buildInfo.isEmpty(buildInfo.getFingerprint()));
+                deviceBaseMap.put("buildHost", buildInfo.isEmpty(buildInfo.getHost()));
+                deviceBaseMap.put("radio", buildInfo.isEmpty(buildInfo.getRadio()));
+                deviceBaseMap.put("buildTime", buildInfo.getTime());
+                deviceBaseMap.put("model", buildInfo.isEmpty(buildInfo.getModel()));
+                deviceBaseMap.put("manufacturer", buildInfo.isEmpty(buildInfo.getManufacturer()));
 
 
-                deviceBaseMap.put("ram", memoryInfo.optString(BaseData.Memory.RAM_MEMORY));
-                deviceBaseMap.put("rom", memoryInfo.optString(BaseData.Memory.SDCARD_REAL_MEMORY_TOTAL));
-                deviceBaseMap.put("canUseRom", memoryInfo.optString(BaseData.Memory.RAM_AVAIL_MEMORY));
-                deviceBaseMap.put("canUseRam", memoryInfo.optString(BaseData.Memory.ROM_MEMORY_AVAILABLE));
+                deviceBaseMap.put("ram", memoryInfo.isEmpty(memoryInfo.getRamMemory()));
+                deviceBaseMap.put("rom", memoryInfo.isEmpty(memoryInfo.getSdCardRealMemoryTotal()));
+                deviceBaseMap.put("canUseRom", memoryInfo.isEmpty(memoryInfo.getRomMemoryAvailable()));
+                deviceBaseMap.put("canUseRam", memoryInfo.isEmpty(memoryInfo.getRamAvailMemory()));
 
 
-                deviceBaseMap.put("mac", signalInfo.optString(BaseData.Signal.MAC_ADDRESS));
+                deviceBaseMap.put("mac", signalInfo.isEmpty(signalInfo.getMacAddress()));
 
-                deviceBaseMap.put("language", local.optString(BaseData.Local.LANGUAGE));
+                deviceBaseMap.put("language", local.isEmpty(local.getLanguage()));
 
-                deviceBaseMap.put("baseBand", bandInfo.optString(BaseData.Band.BASE_BAND));
+                deviceBaseMap.put("baseBand", bandInfo.isEmpty(bandInfo.getBaseBand()));
 
 
-                int    sHeight      = screen.optInt(BaseData.Screen.HEIGHT);
-                int    sWidth       = screen.optInt(BaseData.Screen.WIDTH);
-                double density      = screen.optDouble(BaseData.Screen.DENSITY_SCALE);
+                int    sHeight      = screen.getHeight();
+                int    sWidth       = screen.getWidth();
+                double density      = screen.getDensityScale();
                 double physicalSize = Math.sqrt(Math.pow(sWidth, 2) + Math.pow(sHeight, 2)) / (160 * density);
                 deviceBaseMap.put("resolution", sHeight + "*" + sWidth);
                 deviceBaseMap.put("screenDensity", density);
-                deviceBaseMap.put("screenDensityDpi", screen.optString(BaseData.Screen.DENSITY_DPI));
-                deviceBaseMap.put("screenBrightness", screen.optInt(BaseData.Screen.SCREEN_BRIGHTNESS));
+                deviceBaseMap.put("screenDensityDpi", screen.getDensityDpi());
+                deviceBaseMap.put("screenBrightness", screen.getScreenBrightness());
                 deviceBaseMap.put("physicalSize", physicalSize);
 
                 TimeZone timeZone = TimeZone.getDefault();
@@ -142,9 +152,9 @@ public class MobileDeviceTool {
 
             try {
 
-                batteryMap.put("batteryPercentage", battery.optString(BaseData.Battery.BR));
-                batteryMap.put("batteryStatus", battery.optInt(BaseData.Battery.STATUS));
-                batteryMap.put("chargingMode", battery.optInt(BaseData.Battery.PLUG_STATE));
+                batteryMap.put("batteryPercentage", battery.isEmpty(battery.getBr()));
+                batteryMap.put("batteryStatus", battery.getStatus());
+                batteryMap.put("chargingMode", battery.getPlugState());
                 batteryMap.put("activeTime", SystemClock.uptimeMillis());
                 batteryMap.put("upTime", SystemClock.elapsedRealtime());
                 batteryMap.put("bootTime", System.currentTimeMillis() - SystemClock.elapsedRealtime());
@@ -155,46 +165,46 @@ public class MobileDeviceTool {
 
             try {
 
-                cpuMap.put("cpuName", cpuInfo.optString(BaseData.Cpu.CPU_NAME));
-                cpuMap.put("cpuFreq", cpuInfo.optString(BaseData.Cpu.CPU_FREQ));
-                cpuMap.put("cpuMinFreq", cpuInfo.optString(BaseData.Cpu.CPU_MIN_FREQ));
-                cpuMap.put("cpuMaxFreq", cpuInfo.optString(BaseData.Cpu.CPU_MAX_FREQ));
-                cpuMap.put("cpuHardware", cpuInfo.optString(BaseData.Cpu.CPU_HARDWARE));
-                cpuMap.put("cpuCores", cpuInfo.optString(BaseData.Cpu.CPU_CORES));
-                cpuMap.put("cpuTemp", cpuInfo.optString(BaseData.Cpu.CPU_TEMP));
-                cpuMap.put("cpuAbi", cpuInfo.optString(BaseData.Cpu.CPU_ABI));
+                cpuMap.put("cpuName", cpuInfo.isEmpty(cpuInfo.getCpuName()));
+                cpuMap.put("cpuFreq", cpuInfo.isEmpty(cpuInfo.getCpuFreq()));
+                cpuMap.put("cpuMinFreq", cpuInfo.isEmpty(cpuInfo.getCpuMinFreq()));
+                cpuMap.put("cpuMaxFreq", cpuInfo.isEmpty(cpuInfo.getCpuMaxFreq()));
+                cpuMap.put("cpuHardware", cpuInfo.isEmpty(cpuInfo.getCpuHardware()));
+                cpuMap.put("cpuCores", cpuInfo.getCpuCores());
+                cpuMap.put("cpuTemp", cpuInfo.isEmpty(cpuInfo.getCpuTemp()));
+                cpuMap.put("cpuAbi", cpuInfo.isEmpty(cpuInfo.getCpuAbi()));
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             try {
-                boolean twoCard  = simInfo.optBoolean(BaseData.SimCard.IS_TWO_CARD);
-                boolean haveCard = simInfo.optBoolean(BaseData.SimCard.IS_HAVE_CARD);
+                boolean twoCard  = simInfo.isTwoCard();
+                boolean haveCard = simInfo.isHaveCard();
                 simMap.put("simCount", twoCard ? 2 : (haveCard ? 1 : 0));
-                simMap.put("simState1", simInfo.optInt(BaseData.SimCard.SIM1_STATE));
-                simMap.put("simState2", simInfo.optInt(BaseData.SimCard.SIM2_STATE));
-                simMap.put("meid", simInfo.optString(BaseData.SimCard.MEID));
-                simMap.put("simOperator1", simInfo.optString(BaseData.SimCard.SIM1_CARRIER_NAME));
-                simMap.put("simOperator2", simInfo.optString(BaseData.SimCard.SIM2_CARRIER_NAME));
-                simMap.put("imsi1", simInfo.optString(BaseData.SimCard.SIM1_IMSI));
-                simMap.put("imsi2", simInfo.optString(BaseData.SimCard.SIM2_IMSI));
-                simMap.put("simNetType", simInfo.optString(BaseData.SimCard.SIM_NETWORK_TYPE));
+                simMap.put("simState1", simInfo.getSim1State());
+                simMap.put("simState2", simInfo.getSim2State());
+                simMap.put("meid", simInfo.isEmpty(simInfo.getMeid()));
+                simMap.put("simOperator1", simInfo.isEmpty(simInfo.getSim1carrierName()));
+                simMap.put("simOperator2", simInfo.isEmpty(simInfo.getSim2carrierName()));
+                simMap.put("imsi1", simInfo.isEmpty(simInfo.getSim1Imsi()));
+                simMap.put("imsi2", simInfo.isEmpty(simInfo.getSim2Imsi()));
+                simMap.put("simNetType", simInfo.isEmpty(simInfo.getSimNetworkType()));
 
-                JSONArray                 jsonArray = simInfo.optJSONArray(BaseData.SimCard.CELL_IDENTITY);
-                List<Map<String, Object>> cellList  = new ArrayList<>();
-                if (jsonArray != null && jsonArray.length() > 0) {
-                    int length = jsonArray.length();
+                List<CellIdentityBean>    cellIdentityList = simInfo.getCellIdentityList();
+                List<Map<String, Object>> cellList         = new ArrayList<>();
+                if (cellIdentityList != null && cellIdentityList.size() > 0) {
+                    int length = cellIdentityList.size();
 
                     for (int i = 0; i < length; i++) {
-                        JSONObject          jsonObject = jsonArray.getJSONObject(i);
-                        Map<String, Object> map        = new HashMap<>();
-                        map.put("cid", jsonObject.optString(BaseData.CELL.CID));
-                        map.put("lac", jsonObject.optString(BaseData.CELL.LAC));
-                        map.put("mcc", jsonObject.optString(BaseData.CELL.MCC));
-                        map.put("mnc", jsonObject.optString(BaseData.CELL.MNC));
-                        map.put("type", jsonObject.optString(BaseData.CELL.CELL_TYPE));
-                        map.put("dbm", jsonObject.optInt(BaseData.CELL.DBM));
+                        CellIdentityBean    cell = cellIdentityList.get(i);
+                        Map<String, Object> map  = new HashMap<>();
+                        map.put("cid", cell.isEmpty(cell.getCid()));
+                        map.put("lac", cell.isEmpty(cell.getLac()));
+                        map.put("mcc", cell.isEmpty(cell.getMcc()));
+                        map.put("mnc", cell.isEmpty(cell.getMnc()));
+                        map.put("type", cell.isEmpty(cell.getType()));
+                        map.put("dbm", cell.getDbm());
 
                         cellList.add(map);
 

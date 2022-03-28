@@ -33,7 +33,7 @@ class HookInfo {
      * @param context
      * @return
      */
-    static JSONObject getXposedHook(Context context) {
+    static HookBean getXposedHook(Context context) {
         HookBean hookBean = new HookBean();
         HookBean.XposedBean xposedBean = new HookBean.XposedBean();
         HookBean.SubstrateBean substrateBean = new HookBean.SubstrateBean();
@@ -71,10 +71,10 @@ class HookInfo {
             }
         }
 
-        hookBean.setIsHaveXposed(xposedBean.toJSONObject());
-        hookBean.setIsHaveSubstrate(substrateBean.toJSONObject());
-        hookBean.setIsHaveFrida(fridaBean.toJSONObject());
-        return hookBean.toJSONObject();
+        hookBean.setIsHaveXposed(xposedBean);
+        hookBean.setIsHaveSubstrate(substrateBean);
+        hookBean.setIsHaveFrida(fridaBean);
+        return hookBean;
     }
 
     private static boolean checkRunningProcesses(Context context) {

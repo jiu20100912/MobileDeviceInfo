@@ -19,24 +19,14 @@ public class CameraBean extends BaseBean {
     /**
      * 摄像头信息
      */
-    private JSONArray cameraInfo;
+    private List<CameraInfoBean> cameraInfo;
 
-    public JSONArray getCameraInfo() {
+    public List<CameraInfoBean> getCameraInfo() {
         return cameraInfo;
     }
 
-    public void setCameraInfo(JSONArray cameraInfo) {
+    public void setCameraInfo(List<CameraInfoBean> cameraInfo) {
         this.cameraInfo = cameraInfo;
-    }
-
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Camera.CAMERA_INFO, cameraInfo);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
     }
 
     public static class CameraInfoBean extends BaseBean {
@@ -761,93 +751,6 @@ public class CameraBean extends BaseBean {
 
         public void setSyncMaxLatency(String syncMaxLatency) {
             this.syncMaxLatency = syncMaxLatency;
-        }
-
-
-
-
-
-        @Override
-        protected JSONObject toJSONObject() {
-            try {
-                jsonObject.put(BaseData.Camera.CameraInfo.CAMERA_FACING, isEmpty(cameraFacing));
-                jsonObject.put(BaseData.Camera.CameraInfo.CAMERA_LEVEL, isEmpty(cameraLevel));
-                jsonObject.put(BaseData.Camera.CameraInfo.CAMERA_FLASH_INFO, cameraFlashInfo);
-                jsonObject.put(BaseData.Camera.CameraInfo.OUTPUT_FORMATS, outputFormats);
-                jsonObject.put("aberrationModes", aberrationModes);
-                jsonObject.put("antiBandingModes", antiBandingModes);
-                jsonObject.put("aeAvailableModes", aeAvailableModes);
-                jsonObject.put("compensationRange", isEmpty(compensationRange));
-                jsonObject.put("compensationStep", compensationStep);
-                jsonObject.put("lockAvailable", lockAvailable);
-                jsonObject.put("afAvailableModes", afAvailableModes);
-                jsonObject.put("availableEffects", availableEffects);
-                jsonObject.put("availableModes", availableModes);
-                jsonObject.put("availableSceneModes", availableSceneModes);
-                jsonObject.put("videoStabilizationModes", videoStabilizationModes);
-                jsonObject.put("awbAvailableModes", awbAvailableModes);
-                jsonObject.put("awbLockAvailable", awbLockAvailable);
-                jsonObject.put("maxRegionsAe", maxRegionsAe);
-                jsonObject.put("maxRegionsAf", maxRegionsAf);
-                jsonObject.put("maxRegionsAwb", maxRegionsAwb);
-                jsonObject.put("rawSensitivityBoostRange", isEmpty(rawSensitivityBoostRange));
-                jsonObject.put("depthIsExclusive", depthIsExclusive);
-                jsonObject.put("correctionAvailableModes", correctionAvailableModes);
-                jsonObject.put("availableEdgeModes", availableEdgeModes);
-                jsonObject.put("availableHotPixelModes", availableHotPixelModes);
-                jsonObject.put("supportedHardwareLevel", isEmpty(supportedHardwareLevel));
-                jsonObject.put("infoVersion", isEmpty(infoVersion));
-                jsonObject.put("jpegAvailableThumbnailSizes",jpegAvailableThumbnailSizes);
-                jsonObject.put("lensDistortion",lensDistortion);
-                jsonObject.put("lensInfoAvailableApertures",lensInfoAvailableApertures);
-                jsonObject.put("lensInfoAvailableFilterDensities",lensInfoAvailableFilterDensities);
-                jsonObject.put("lensInfoAvailableFocalLengths",lensInfoAvailableFocalLengths);
-                jsonObject.put("availableOpticalStabilization",availableOpticalStabilization);
-                jsonObject.put("focusDistanceCalibration",isEmpty(focusDistanceCalibration));
-                jsonObject.put("hyperFocalDistance",hyperFocalDistance);
-                jsonObject.put("minimumFocusDistance",minimumFocusDistance);
-                jsonObject.put("lensIntrinsicCalibration",lensIntrinsicCalibration);
-                jsonObject.put("lensPoseReference",isEmpty(lensPoseReference));
-                jsonObject.put("lensPoseRotation",lensPoseRotation);
-                jsonObject.put("lensPoseTranslation",lensPoseTranslation);
-                jsonObject.put("cameraSensorSyncType",isEmpty(cameraSensorSyncType));
-                jsonObject.put("availableNoiseReductionModes",availableNoiseReductionModes);
-                jsonObject.put("maxCaptureStall",maxCaptureStall);
-                jsonObject.put("requestAvailableCapabilities",requestAvailableCapabilities);
-                jsonObject.put("requestMaxNumInputStreams",requestMaxNumInputStreams);
-                jsonObject.put("requestMaxNumOutputProc",requestMaxNumOutputProc);
-                jsonObject.put("requestMaxNumOutputProcStalling",requestMaxNumOutputProcStalling);
-                jsonObject.put("requestMaxNumOutputRaw",requestMaxNumOutputRaw);
-                jsonObject.put("requestPartialResultCount",requestPartialResultCount);
-                jsonObject.put("requestPipelineMaxDepth",requestPipelineMaxDepth);
-                jsonObject.put("scalerAvailableMaxDigitalZoom",scalerAvailableMaxDigitalZoom);
-                jsonObject.put("scalerCroppingType",isEmpty(scalerCroppingType));
-                jsonObject.put("sensorAvailableTestPatternModes",sensorAvailableTestPatternModes);
-                jsonObject.put("sensorInfoColorFilterArrangement",isEmpty(sensorInfoColorFilterArrangement));
-                jsonObject.put("sensorInfoExposureTimeRange",isEmpty(sensorInfoExposureTimeRange));
-                jsonObject.put("sensorInfoLensShadingApplied",sensorInfoLensShadingApplied);
-                jsonObject.put("sensorInfoaxFrameDuration",sensorInfoaxFrameDuration);
-                jsonObject.put("sensorInfoSensitivityRange",isEmpty(sensorInfoSensitivityRange));
-                jsonObject.put("sensorInfoTimestampSource",isEmpty(sensorInfoTimestampSource));
-                jsonObject.put("sensorInfoWhiteLevel",sensorInfoWhiteLevel);
-                jsonObject.put("sensorMaxAnalogSensitivity",sensorMaxAnalogSensitivity);
-                jsonObject.put("sensorOrientation",sensorOrientation);
-                jsonObject.put("sensorReferenceIlluminant1",isEmpty(sensorReferenceIlluminant1));
-                jsonObject.put("shadingAvailableModes",shadingAvailableModes);
-                jsonObject.put("availableFaceDetectModes", availableFaceDetectModes);
-                jsonObject.put("availableLensShadingMapModes", availableLensShadingMapModes);
-                jsonObject.put("availableOisDataModes", availableOisDataModes);
-                jsonObject.put("statisticsInfoMaxFaceCount", statisticsInfoMaxFaceCount);
-                jsonObject.put("syncMaxLatency", isEmpty(syncMaxLatency));
-                jsonObject.put("availableToneMapModes", availableToneMapModes);
-                jsonObject.put("tonemapMaxCurvePoints", tonemapMaxCurvePoints);
-
-                jsonObject.put("fpsRanges", fpsRanges);
-
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
-            return super.toJSONObject();
         }
     }
 }

@@ -79,18 +79,5 @@ public class EmulatorBean extends BaseBean {
         this.checkCpuInfo = checkCpuInfo;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Emulator.CHECK_BUILD, checkBuild);
-            jsonObject.put(BaseData.Emulator.CHECK_PKG, checkPkg);
-            jsonObject.put(BaseData.Emulator.CHECK_PIPES, checkPipes);
-            jsonObject.put(BaseData.Emulator.CHECK_QEMU_DRIVER_FILE, checkQEmuDriverFile);
-            jsonObject.put(BaseData.Emulator.CHECK_CPU_INFO, checkCpuInfo);
 
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

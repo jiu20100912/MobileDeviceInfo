@@ -14,7 +14,7 @@ class LocalInfo {
 
     public static final String TAG = LocalInfo.class.getSimpleName();
 
-    static JSONObject getMobLocal() {
+    static LocalBean getMobLocal() {
         LocalBean localBean = new LocalBean();
         try {
             localBean.setCountry(Locale.getDefault().getCountry());
@@ -22,6 +22,6 @@ class LocalInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return localBean.toJSONObject();
+        return localBean;
     }
 }

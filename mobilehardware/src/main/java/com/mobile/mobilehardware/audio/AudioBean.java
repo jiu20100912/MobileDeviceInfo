@@ -328,39 +328,4 @@ public class AudioBean extends BaseBean {
     public void setCurrentDTMF(int currentDTMF) {
         this.currentDTMF = currentDTMF;
     }
-
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Aduio.MAX_VOICE_CALL, maxVoiceCall);
-            jsonObject.put(BaseData.Aduio.MIN_VOICE_CALL, minVoiceCall);
-            jsonObject.put(BaseData.Aduio.CURRENT_VOICE_CALL, currentVoiceCall);
-            jsonObject.put(BaseData.Aduio.MAX_SYSTEM, maxSystem);
-            jsonObject.put(BaseData.Aduio.MIN_SYSTEM, minSystem);
-            jsonObject.put(BaseData.Aduio.CURRENT_SYSTEM, currentSystem);
-            jsonObject.put(BaseData.Aduio.MAX_RING, maxRing);
-            jsonObject.put(BaseData.Aduio.MIN_RING, minRing);
-            jsonObject.put(BaseData.Aduio.CURRENT_RING, currentRing);
-            jsonObject.put(BaseData.Aduio.MAX_MUSIC, maxMusic);
-            jsonObject.put(BaseData.Aduio.MIN_MUSIC, minMusic);
-            jsonObject.put(BaseData.Aduio.CURRENT_MUSIC, currentMusic);
-            jsonObject.put(BaseData.Aduio.MAX_ALARM, maxAlarm);
-            jsonObject.put(BaseData.Aduio.MIN_ALARM, minAlarm);
-            jsonObject.put(BaseData.Aduio.CURRENT_ALARM, currentAlarm);
-            jsonObject.put(BaseData.Aduio.MAX_NOTIFICATIONS, maxNotifications);
-            jsonObject.put(BaseData.Aduio.MIN_NOTIFICATIONS, minNotifications);
-            jsonObject.put(BaseData.Aduio.CURRENT_NOTIFICATIONS, currentNotifications);
-            jsonObject.put(BaseData.Aduio.MAX_ACCESSIBILITY, maxAccessibility);
-            jsonObject.put(BaseData.Aduio.MIN_ACCESSIBILITY, minAccessibility);
-            jsonObject.put(BaseData.Aduio.CURRENT_ACCESSIBILITY, currentAccessibility);
-            jsonObject.put(BaseData.Aduio.MAX_DTMF, maxDTMF);
-            jsonObject.put(BaseData.Aduio.MIN_DTMF, minDTMF);
-            jsonObject.put(BaseData.Aduio.CURRENT_DTMF, currentDTMF);
-
-
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

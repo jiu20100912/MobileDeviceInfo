@@ -19,6 +19,10 @@ public class HookHelper extends HookInfo {
      * @return
      */
     public static JSONObject isXposedHook() {
+        return isXposedHookBean().toJSONObject();
+    }
+
+    public static HookBean isXposedHookBean() {
         return getXposedHook(MobileHardWareHelper.getContext());
     }
 

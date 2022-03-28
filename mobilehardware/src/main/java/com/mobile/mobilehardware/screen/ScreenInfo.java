@@ -24,7 +24,7 @@ import org.json.JSONObject;
 class ScreenInfo {
     private static final String TAG = ScreenInfo.class.getSimpleName();
 
-    static JSONObject getMobScreen(Context context, Window window) {
+    static ScreenBean getMobScreen(Context context, Window window) {
         final ScreenBean screenBean = new ScreenBean();
         try {
             DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -56,7 +56,7 @@ class ScreenInfo {
         } catch (Exception e) {
             Log.i(TAG, e.toString());
         }
-        return screenBean.toJSONObject();
+        return screenBean;
     }
 
 

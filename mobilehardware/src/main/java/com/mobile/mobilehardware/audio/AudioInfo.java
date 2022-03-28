@@ -14,12 +14,12 @@ class AudioInfo {
 
     private static final String TAG = AudioInfo.class.getSimpleName();
 
-    static JSONObject getAudio(Context context) {
+    static AudioBean getAudio(Context context) {
         AudioBean mobAudioBean = new AudioBean();
         try {
             AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             if (mAudioManager == null) {
-                return mobAudioBean.toJSONObject();
+                return mobAudioBean;
             }
             mobAudioBean.setMaxVoiceCall(mAudioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL));
             mobAudioBean.setCurrentVoiceCall(mAudioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL));
@@ -61,6 +61,6 @@ class AudioInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return mobAudioBean.toJSONObject();
+        return mobAudioBean;
     }
 }

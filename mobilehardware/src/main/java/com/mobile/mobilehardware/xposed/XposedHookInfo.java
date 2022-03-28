@@ -35,7 +35,7 @@ class XposedHookInfo {
      *
      * @return
      */
-    static JSONObject xposedInjet(Context context) {
+    static XposedHookBean xposedInjet(Context context) {
         XposedHookBean xposedHookBean = new XposedHookBean();
         String packageName = getPackageName(context);
         try {
@@ -47,7 +47,7 @@ class XposedHookInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return xposedHookBean.toJSONObject();
+        return xposedHookBean;
     }
 
     /**

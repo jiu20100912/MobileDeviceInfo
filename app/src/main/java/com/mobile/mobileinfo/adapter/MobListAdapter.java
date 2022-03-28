@@ -70,7 +70,7 @@ public class MobListAdapter extends BaseAdapter {
             viewHolder.value.setVisibility(View.GONE);
         } else {
             viewHolder.iv.setVisibility(View.GONE);
-            viewHolder.value.setText(param.getValue().toString());
+            viewHolder.value.setText(String.valueOf(param.getValue()));
         }
         return view;
     }

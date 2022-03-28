@@ -29,7 +29,7 @@ public class BluetoothBean extends BaseBean {
     /**
      * 连接的手机的信息
      */
-    private List<JSONObject> device;
+    private List<BluetoothBean.DeviceBean> device;
 
     /**
      * 手机设置的名字
@@ -52,11 +52,11 @@ public class BluetoothBean extends BaseBean {
         isEnabled = enabled;
     }
 
-    public List<JSONObject> getDevice() {
+    public List<BluetoothBean.DeviceBean> getDevice() {
         return device;
     }
 
-    public void setDevice(List<JSONObject> device) {
+    public void setDevice(List<BluetoothBean.DeviceBean> device) {
         this.device = device;
     }
 
@@ -66,20 +66,6 @@ public class BluetoothBean extends BaseBean {
 
     public void setPhoneName(String phoneName) {
         this.phoneName = phoneName;
-    }
-
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Bluetooth.BLUETOOTH_ADDRESS, isEmpty(bluetoothAddress));
-            jsonObject.put(BaseData.Bluetooth.IS_ENABLED, isEnabled);
-            jsonObject.put(BaseData.Bluetooth.DEVICE, new JSONArray(device));
-            jsonObject.put(BaseData.Bluetooth.PHONE_NAME, isEmpty(phoneName));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return super.toJSONObject();
     }
 
     public static class DeviceBean extends BaseBean {
@@ -110,15 +96,5 @@ public class BluetoothBean extends BaseBean {
             this.name = name;
         }
 
-        @Override
-        protected JSONObject toJSONObject() {
-            try {
-                jsonObject.put(BaseData.Bluetooth.Device.NAME, isEmpty(name));
-                jsonObject.put(BaseData.Bluetooth.Device.ADDRESS, isEmpty(address));
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
-            return super.toJSONObject();
-        }
     }
 }

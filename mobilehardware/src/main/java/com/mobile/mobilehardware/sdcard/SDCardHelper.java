@@ -14,6 +14,10 @@ public class SDCardHelper extends SDCardInfo {
      * @return
      */
     public static JSONObject mobGetSdCard() {
+        return mobGetSdCardBean().toJSONObject();
+    }
+
+    public static SDCardBean mobGetSdCardBean() {
         return getSdCard();
     }
 

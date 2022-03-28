@@ -16,6 +16,10 @@ public class AudioHelper extends AudioInfo {
      * @return 电量JSON
      */
     public static JSONObject mobGetMobAudio() {
+        return mobGetMobAudioBean().toJSONObject();
+    }
+
+    public static AudioBean mobGetMobAudioBean() {
         return getAudio(MobileHardWareHelper.getContext());
     }
 

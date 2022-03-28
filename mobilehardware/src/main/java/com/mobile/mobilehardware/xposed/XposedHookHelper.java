@@ -1,7 +1,6 @@
 package com.mobile.mobilehardware.xposed;
 
 
-
 import com.mobile.mobilehardware.MobileHardWareHelper;
 
 import org.json.JSONObject;
@@ -31,6 +30,10 @@ public class XposedHookHelper extends XposedHookInfo {
      * @return
      */
     public static JSONObject checkXposedInjet() {
+        return checkXposedInjetBean().toJSONObject();
+    }
+
+    public static XposedHookBean checkXposedInjetBean() {
         return xposedInjet(MobileHardWareHelper.getContext());
     }
 

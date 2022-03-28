@@ -78,7 +78,7 @@ class CpuInfo {
 
     private static final String TAG = CpuInfo.class.getSimpleName();
 
-    static JSONObject getCpuInfo() {
+    static CpuBean getCpuInfo() {
         CpuBean cpuBean = new CpuBean();
         try {
             getCpuName(cpuBean);
@@ -91,7 +91,7 @@ class CpuInfo {
         } catch (Exception e) {
             Log.i(TAG, e.toString());
         }
-        return cpuBean.toJSONObject();
+        return cpuBean;
     }
 
     private static String putCpuAbi() {

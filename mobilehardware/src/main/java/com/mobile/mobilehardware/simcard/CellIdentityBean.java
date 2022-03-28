@@ -63,18 +63,4 @@ public class CellIdentityBean extends BaseBean {
         this.dbm = dbm;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.CELL.CID, isEmpty(cid));
-            jsonObject.put(BaseData.CELL.LAC, isEmpty(lac));
-            jsonObject.put(BaseData.CELL.MCC, isEmpty(mcc));
-            jsonObject.put(BaseData.CELL.MNC, isEmpty(mnc));
-            jsonObject.put(BaseData.CELL.CELL_TYPE, isEmpty(type));
-            jsonObject.put(BaseData.CELL.DBM, dbm);
-        } catch (Exception e) {
-
-        }
-        return super.toJSONObject();
-    }
 }

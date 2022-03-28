@@ -15,8 +15,10 @@ public class BandHelper extends BandInfo {
      * @return
      */
     public static JSONObject mobGetBandInfo() {
-        return getBandInfo();
+        return mobGetBandInfoBean().toJSONObject();
     }
 
-
+    public static BandBean mobGetBandInfoBean() {
+        return getBandInfo();
+    }
 }

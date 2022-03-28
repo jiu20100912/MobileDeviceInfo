@@ -27,7 +27,7 @@ class EmulatorInfo {
      */
     private static final String TAG = EmulatorInfo.class.getSimpleName();
 
-    static JSONObject checkEmulator(Context context) {
+    static EmulatorBean checkEmulator(Context context) {
         EmulatorBean emulatorBean = new EmulatorBean();
         try {
             boolean checkBuild = isEmulatorAbsoluly();
@@ -43,7 +43,7 @@ class EmulatorInfo {
         } catch (Exception e) {
             Log.i(TAG, e.toString());
         }
-        return emulatorBean.toJSONObject();
+        return emulatorBean;
 
     }
 

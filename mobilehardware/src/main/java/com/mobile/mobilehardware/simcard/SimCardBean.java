@@ -108,7 +108,7 @@ public class SimCardBean extends BaseBean {
     private String sim2mnc;
     private String sim1carrierName;
     private String sim2carrierName;
-    private JSONArray cellIdentityList;
+    private List<CellIdentityBean> cellIdentityList;
 
     public String getSim1Imei() {
         return sim1Imei;
@@ -334,51 +334,12 @@ public class SimCardBean extends BaseBean {
         this.sim2State = sim2State;
     }
 
-    public JSONArray getCellIdentityList() {
+    public List<CellIdentityBean> getCellIdentityList() {
         return cellIdentityList;
     }
 
-    public void setCellIdentityList(JSONArray cellIdentityList) {
+    public void setCellIdentityList(List<CellIdentityBean> cellIdentityList) {
         this.cellIdentityList = cellIdentityList;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.SimCard.SIM1_IMEI, isEmpty(sim1Imei));
-            jsonObject.put(BaseData.SimCard.SIM2_IMEI, isEmpty(sim2Imei));
-            jsonObject.put(BaseData.SimCard.SIM1_IMSI, isEmpty(sim1Imsi));
-            jsonObject.put(BaseData.SimCard.SIM2_IMSI, isEmpty(sim2Imsi));
-            jsonObject.put(BaseData.SimCard.SIM_SLOT_INDEX, simSlotIndex);
-            jsonObject.put(BaseData.SimCard.MEID, isEmpty(meid));
-            jsonObject.put(BaseData.SimCard.SIM1_IMSI_OPERATOR, isEmpty(sim1ImsiOperator));
-            jsonObject.put(BaseData.SimCard.SIM2_IMSI_OPERATOR, isEmpty(sim2ImsiOperator));
-            jsonObject.put(BaseData.SimCard.SIM1_READY, sim1Ready);
-            jsonObject.put(BaseData.SimCard.SIM2_READY, sim2Ready);
-            jsonObject.put(BaseData.SimCard.IS_TWO_CARD, isTwoCard);
-            jsonObject.put(BaseData.SimCard.IS_HAVE_CARD, isHaveCard);
-            jsonObject.put(BaseData.SimCard.OPERATOR, isEmpty(operator));
-            jsonObject.put(BaseData.SimCard.SIM1_STATE, sim1State);
-            jsonObject.put(BaseData.SimCard.SIM2_STATE, sim2State);
-            jsonObject.put(BaseData.SimCard.CELL_IDENTITY, cellIdentityList);
-            jsonObject.put("sim1IccId", isEmpty(sim1IccId));
-            jsonObject.put("sim2IccId", isEmpty(sim2IccId));
-            jsonObject.put("sim1SimId", sim1SimId);
-            jsonObject.put("sim2SimId", sim2SimId);
-            jsonObject.put("sim1subId", sim1subId);
-            jsonObject.put("sim2subId", sim2subId);
-            jsonObject.put("sim1mcc", isEmpty(sim1mcc));
-            jsonObject.put("sim2mcc", isEmpty(sim2mcc));
-            jsonObject.put("sim1mnc", isEmpty(sim1mnc));
-            jsonObject.put("sim2mnc", isEmpty(sim2mnc));
-            jsonObject.put(BaseData.SimCard.SIM1_CARRIER_NAME, isEmpty(sim1carrierName));
-            jsonObject.put(BaseData.SimCard.SIM2_CARRIER_NAME, isEmpty(sim2carrierName));
-            jsonObject.put(BaseData.SimCard.SIM_NETWORK_TYPE, isEmpty(simNetworkType));
-
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-
-        }
-        return super.toJSONObject();
-    }
 }

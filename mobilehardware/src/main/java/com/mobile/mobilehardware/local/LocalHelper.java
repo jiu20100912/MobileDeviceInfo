@@ -10,6 +10,10 @@ import org.json.JSONObject;
 public class LocalHelper extends LocalInfo {
 
     public static JSONObject mobGetMobLocal() {
+        return mobGetMobLocalBean().toJSONObject();
+    }
+
+    public static LocalBean mobGetMobLocalBean() {
         return getMobLocal();
     }
 

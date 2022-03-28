@@ -22,7 +22,7 @@ class DebugInfo {
      *
      * @return
      */
-    static JSONObject getDebugData(Context context) {
+    static DebugBean getDebugData(Context context) {
         DebugBean debugBean = new DebugBean();
         try {
             debugBean.setOpenDebug(isOpenDebug(context));
@@ -32,7 +32,7 @@ class DebugInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return debugBean.toJSONObject();
+        return debugBean;
     }
 
 

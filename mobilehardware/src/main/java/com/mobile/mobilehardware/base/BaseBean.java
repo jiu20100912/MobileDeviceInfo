@@ -2,6 +2,9 @@ package com.mobile.mobilehardware.base;
 
 import android.text.TextUtils;
 
+import com.mobile.mobilehardware.utils.GsonTool;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -11,19 +14,21 @@ import java.io.Serializable;
  */
 public class BaseBean implements Serializable {
 
-    protected JSONObject jsonObject = new JSONObject();
-
-
-    protected JSONObject toJSONObject() {
-        return jsonObject;
+    public JSONObject toJSONObject() {
+        try {
+            return new JSONObject(GsonTool.toJson(this));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new JSONObject();
     }
 
     protected BaseBean() {
 
     }
 
-    protected String isEmpty(String value) {
-        if (TextUtils.isEmpty(value)) {
+    public String isEmpty(String value) {
+        if (TextUtils.isEmpty(value) || value.equals("null")) {
             return BaseData.UNKNOWN_PARAM;
         }
         return value;

@@ -20,7 +20,7 @@ class PackageInfo {
 
     private static final String TAG = PackageInfo.class.getSimpleName();
 
-    static JSONObject packageInfo(Context context) {
+    static PackageBean packageInfo(Context context) {
         PackageBean packageBean = new PackageBean();
         try {
             PackageManager packageManager = context.getPackageManager();
@@ -48,7 +48,7 @@ class PackageInfo {
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        return packageBean.toJSONObject();
+        return packageBean;
     }
 
    private static String getLauncherPackageName(Context context) {

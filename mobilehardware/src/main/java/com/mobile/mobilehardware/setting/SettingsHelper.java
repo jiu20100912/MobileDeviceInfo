@@ -16,6 +16,10 @@ public class SettingsHelper extends SettingsInfo {
      * @return
      */
     public static JSONObject mobGetMobSettings() {
+        return mobGetMobSettingsBean().toJSONObject();
+    }
+
+    public static SettingsBean mobGetMobSettingsBean() {
         return getMobSettings(MobileHardWareHelper.getContext());
     }
 

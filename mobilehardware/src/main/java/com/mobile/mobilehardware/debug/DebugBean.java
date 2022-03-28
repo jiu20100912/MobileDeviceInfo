@@ -68,16 +68,4 @@ public class DebugBean extends BaseBean {
     }
 
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Debug.IS_OPEN_DEBUG, isOpenDebug);
-            jsonObject.put(BaseData.Debug.IS_DEBUG_VERSION, isDebugVersion);
-            jsonObject.put(BaseData.Debug.IS_DEBUGGING, isDebugging);
-            jsonObject.put(BaseData.Debug.IS_READ_PROC_STATUS, isReadProcStatus);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
 }

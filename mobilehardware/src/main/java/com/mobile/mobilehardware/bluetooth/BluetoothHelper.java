@@ -17,6 +17,10 @@ public class BluetoothHelper extends BluetoothInfo {
      * @return
      */
     public static JSONObject mobGetMobBluetooth() {
+        return mobGetMobBluetoothBean().toJSONObject();
+    }
+
+    public static BluetoothBean mobGetMobBluetoothBean() {
         return getMobBluetooth(MobileHardWareHelper.getContext());
     }
 

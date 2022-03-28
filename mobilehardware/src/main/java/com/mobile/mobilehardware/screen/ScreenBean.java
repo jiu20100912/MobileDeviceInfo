@@ -182,25 +182,5 @@ public class ScreenBean extends BaseBean {
         this.getNavigationBarHeight = getNavigationBarHeight;
     }
 
-    @Override
-    protected JSONObject toJSONObject() {
-        try {
-            jsonObject.put(BaseData.Screen.DENSITY_SCALE, densityScale);
-            jsonObject.put(BaseData.Screen.DENSITY_DPI, densityDpi);
-            jsonObject.put(BaseData.Screen.WIDTH, width);
-            jsonObject.put(BaseData.Screen.HEIGHT, height);
-            jsonObject.put(BaseData.Screen.IS_SCREEN_AUTO, isScreenAuto);
-            jsonObject.put(BaseData.Screen.IS_SCREEN_AUTO_CHANGE, isScreenAutoChange);
-            jsonObject.put(BaseData.Screen.SCREEN_BRIGHTNESS, screenBrightness);
-            jsonObject.put(BaseData.Screen.CHECK_HIDE_STATUSBAR, checkHideStatusBar);
-            jsonObject.put(BaseData.Screen.CHECK_HAS_NAVIGATIONBAR, checkHasNavigationBar);
-            jsonObject.put(BaseData.Screen.GET_STATUSBAR_HEIGHT, getStatusBarHeight);
-            jsonObject.put(BaseData.Screen.GET_NAVIGATIONBAR_HEIGHT, getNavigationBarHeight);
-            jsonObject.put(BaseData.Screen.IS_WINDOW_NOTCH, isWindowNotch);
-            jsonObject.put(BaseData.Screen.WINDOW_NOTCH_HEIGHT, windowNotchHeight + "");
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-        return super.toJSONObject();
-    }
+
 }
