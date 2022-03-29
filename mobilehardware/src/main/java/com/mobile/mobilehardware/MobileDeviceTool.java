@@ -94,10 +94,10 @@ public class MobileDeviceTool {
 
             try {
 
-                deviceBaseMap.put("isVpn", netWork.isVpn());
-                deviceBaseMap.put("isDebug", debuggingData.isOpenDebug());
-                deviceBaseMap.put("isEmulator", emulator.isCheckBuild());
-                deviceBaseMap.put("isRoot", RootHelper.mobileRoot());
+                deviceBaseMap.put("vpnFlag", netWork.isVpn());
+                deviceBaseMap.put("debugFlag", debuggingData.isOpenDebug());
+                deviceBaseMap.put("emulatorFlag", emulator.isCheckBuild());
+                deviceBaseMap.put("rootFlag", RootHelper.mobileRoot());
 
                 deviceBaseMap.put("serial", buildInfo.isEmpty(buildInfo.getSerial()));
                 deviceBaseMap.put("product", buildInfo.isEmpty(buildInfo.getProduct()));
