@@ -31,10 +31,11 @@ public class MobileDeviceTool {
 
     public static void getDeviceInfo(DeviceResultListener resultListener) {
 
-        Map<String, Object> deviceBaseMap = new HashMap<>();
-        Map<String, Object> simMap        = new HashMap<>();
-        Map<String, Object> batteryMap    = new HashMap<>();
-        Map<String, Object> cpuMap        = new HashMap<>();
+        Map<String, Object>       deviceBaseMap = new HashMap<>();
+        Map<String, Object>       simMap        = new HashMap<>();
+        Map<String, Object>       batteryMap    = new HashMap<>();
+        Map<String, Object>       cpuMap        = new HashMap<>();
+        List<Map<String, Object>> cellList      = new ArrayList<>();
 
         try {
 
@@ -83,10 +84,10 @@ public class MobileDeviceTool {
 
             try {
 
-                deviceBaseMap.put("isVpn", netWork.optBoolean(BaseData.NetWork.VPN));
-                deviceBaseMap.put("isDebug", debuggingData.optBoolean(BaseData.Debug.IS_OPEN_DEBUG));
-                deviceBaseMap.put("isEmulator", emulator.optBoolean(BaseData.Emulator.CHECK_BUILD));
-                deviceBaseMap.put("isRoot", RootHelper.mobileRoot());
+                deviceBaseMap.put("vpnFlag", netWork.optBoolean(BaseData.NetWork.VPN));
+                deviceBaseMap.put("debugFlag", debuggingData.optBoolean(BaseData.Debug.IS_OPEN_DEBUG));
+                deviceBaseMap.put("emulatorFlag", emulator.optBoolean(BaseData.Emulator.CHECK_BUILD));
+                deviceBaseMap.put("rootFlag", RootHelper.mobileRoot());
 
                 deviceBaseMap.put("serial", buildInfo.optString(BaseData.Build.SERIAL));
                 deviceBaseMap.put("product", buildInfo.optString(BaseData.Build.PRODUCT));
@@ -166,6 +167,8 @@ public class MobileDeviceTool {
 
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                deviceBaseMap.putAll(cpuMap);
             }
 
             try {
@@ -181,8 +184,8 @@ public class MobileDeviceTool {
                 simMap.put("imsi2", simInfo.optString(BaseData.SimCard.SIM2_IMSI));
                 simMap.put("simNetType", simInfo.optString(BaseData.SimCard.SIM_NETWORK_TYPE));
 
-                JSONArray                 jsonArray = simInfo.optJSONArray(BaseData.SimCard.CELL_IDENTITY);
-                List<Map<String, Object>> cellList  = new ArrayList<>();
+                JSONArray jsonArray = simInfo.optJSONArray(BaseData.SimCard.CELL_IDENTITY);
+
                 if (jsonArray != null && jsonArray.length() > 0) {
                     int length = jsonArray.length();
 
@@ -201,8 +204,6 @@ public class MobileDeviceTool {
                     }
                 }
 
-                simMap.put("cellInfo", cellList);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -212,7 +213,7 @@ public class MobileDeviceTool {
             e.printStackTrace();
         } finally {
 
-            resultListener.onDeviceResult(deviceBaseMap, batteryMap, simMap, cpuMap);
+            resultListener.onDeviceResult(deviceBaseMap, batteryMap, simMap, cellList);
         }
 
     }
