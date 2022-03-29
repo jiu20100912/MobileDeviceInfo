@@ -41,10 +41,11 @@ public class MobileDeviceTool {
 
     public static void getDeviceInfo(DeviceResultListener resultListener) {
 
-        Map<String, Object> deviceBaseMap = new HashMap<>();
-        Map<String, Object> simMap        = new HashMap<>();
-        Map<String, Object> batteryMap    = new HashMap<>();
-        Map<String, Object> cpuMap        = new HashMap<>();
+        Map<String, Object>       deviceBaseMap = new HashMap<>();
+        Map<String, Object>       simMap        = new HashMap<>();
+        Map<String, Object>       batteryMap    = new HashMap<>();
+        Map<String, Object>       cpuMap        = new HashMap<>();
+        List<Map<String, Object>> cellList      = new ArrayList<>();
 
         try {
 
@@ -191,8 +192,7 @@ public class MobileDeviceTool {
                 simMap.put("imsi2", simInfo.isEmpty(simInfo.getSim2Imsi()));
                 simMap.put("simNetType", simInfo.isEmpty(simInfo.getSimNetworkType()));
 
-                List<CellIdentityBean>    cellIdentityList = simInfo.getCellIdentityList();
-                List<Map<String, Object>> cellList         = new ArrayList<>();
+                List<CellIdentityBean> cellIdentityList = simInfo.getCellIdentityList();
                 if (cellIdentityList != null && cellIdentityList.size() > 0) {
                     int length = cellIdentityList.size();
 
@@ -211,7 +211,6 @@ public class MobileDeviceTool {
                     }
                 }
 
-                simMap.put("cellInfo", cellList);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -221,8 +220,8 @@ public class MobileDeviceTool {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
-            resultListener.onDeviceResult(deviceBaseMap, batteryMap, simMap, cpuMap);
+            deviceBaseMap.putAll(cpuMap);
+            resultListener.onDeviceResult(deviceBaseMap, batteryMap, simMap, cellList);
         }
 
     }

@@ -72,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onDeviceResult(Map<String, Object> deviceMap, Map<String, Object> batteryMap, Map<String, Object> simMap, Map<String, Object> cpuMap) {
-                Map<String,Object> map=new HashMap<>();
-                map.put("device",deviceMap);
-                map.put("battery",batteryMap);
-                map.put("simInfo",simMap);
-                map.put("cpuInfo",cpuMap);
+            public void onDeviceResult(Map<String, Object> deviceMap, Map<String, Object> batteryMap, Map<String, Object> simMap, List<Map<String, Object>> cellList) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("device", deviceMap);
+                map.put("battery", batteryMap);
+                map.put("simInfo", simMap);
+                map.put("cellInfoList", cellList);
                 Log.e("onDeviceAll", new JSONObject(map).toString());
             }
         });
