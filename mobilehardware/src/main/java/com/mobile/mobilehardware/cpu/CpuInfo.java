@@ -82,11 +82,17 @@ class CpuInfo {
         CpuBean cpuBean = new CpuBean();
         try {
             getCpuName(cpuBean);
-            cpuBean.setCpuFreq(getCurCpuFreq() + "KHZ");
-            cpuBean.setCpuMaxFreq(getMaxCpuFreq() + "KHZ");
-            cpuBean.setCpuMinFreq(getMinCpuFreq() + "KHZ");
+            String curCpuFreq = getCurCpuFreq();
+            String maxCpuFreq = getMaxCpuFreq();
+            String minCpuFreq = getMinCpuFreq();
+            if (!TextUtils.isEmpty(curCpuFreq))
+                cpuBean.setCpuFreq(curCpuFreq + "KHZ");
+            if (!TextUtils.isEmpty(maxCpuFreq))
+                cpuBean.setCpuMaxFreq(maxCpuFreq + "KHZ");
+            if (!TextUtils.isEmpty(minCpuFreq))
+                cpuBean.setCpuMinFreq(minCpuFreq + "KHZ");
             cpuBean.setCpuCores(getHeart());
-            cpuBean.setCpuTemp(getCpuTemp() + "℃");
+            cpuBean.setCpuTemp(getCpuTemp());
             cpuBean.setCpuAbi(putCpuAbi());
         } catch (Exception e) {
             Log.i(TAG, e.toString());
@@ -126,7 +132,14 @@ class CpuInfo {
         } catch (IOException e) {
             Log.i(TAG, e.toString());
         }
-        return TextUtils.isEmpty(temp) ? null : temp.length() >= 5 ? (Integer.valueOf(temp) / 1000) + "" : temp.length() >= 4 ? (Integer.valueOf(temp) / 100) + "" : temp;
+        if (TextUtils.isEmpty(temp))
+            return null;
+        Log.d("cpuTemp", temp);
+
+        if (temp.length() > 2) {
+            return Integer.parseInt(temp) / (Math.pow(10, temp.length() - 2)) + "";
+        }
+        return temp;
     }
 
     private static int getHeart() {

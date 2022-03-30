@@ -1,6 +1,7 @@
 package com.mobile.mobilehardware;
 
 import android.os.SystemClock;
+import android.text.TextUtils;
 
 import com.mobile.mobilehardware.band.BandHelper;
 import com.mobile.mobilehardware.battery.BatteryHelper;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -67,7 +69,8 @@ public class MobileDeviceTool {
                             map.put("ssid", jb.optString("SSID"));
                             map.put("bssid", bssid);
                             map.put("current", bssid.equals(curBSSID));
-                            map.put("mac", mac);
+                            if (!TextUtils.isEmpty(mac))
+                                map.put("mac", mac);
                             wifiList.add(map);
                         }
                     }
@@ -192,11 +195,23 @@ public class MobileDeviceTool {
                     for (int i = 0; i < length; i++) {
                         JSONObject          jsonObject = jsonArray.getJSONObject(i);
                         Map<String, Object> map        = new HashMap<>();
-                        map.put("cid", jsonObject.optString(BaseData.CELL.CID));
-                        map.put("lac", jsonObject.optString(BaseData.CELL.LAC));
-                        map.put("mcc", jsonObject.optString(BaseData.CELL.MCC));
-                        map.put("mnc", jsonObject.optString(BaseData.CELL.MNC));
-                        map.put("type", jsonObject.optString(BaseData.CELL.CELL_TYPE));
+
+                        String cid  = jsonObject.optString(BaseData.CELL.CID);
+                        String lac  = jsonObject.optString(BaseData.CELL.LAC);
+                        String mcc  = jsonObject.optString(BaseData.CELL.MCC);
+                        String mnc  = jsonObject.optString(BaseData.CELL.MNC);
+                        String type = jsonObject.optString(BaseData.CELL.CELL_TYPE);
+
+                        if (!TextUtils.isEmpty(cid))
+                            map.put("cid", cid);
+                        if (!TextUtils.isEmpty(lac))
+                            map.put("lac", lac);
+                        if (!TextUtils.isEmpty(mcc))
+                            map.put("mcc", mcc);
+                        if (!TextUtils.isEmpty(mnc))
+                            map.put("mnc", mnc);
+                        if (!TextUtils.isEmpty(type))
+                            map.put("type", type);
                         map.put("dbm", jsonObject.optInt(BaseData.CELL.DBM));
 
                         cellList.add(map);
@@ -206,6 +221,37 @@ public class MobileDeviceTool {
 
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+
+
+            Iterator<Map.Entry<String, Object>> iterator = deviceBaseMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, Object> next = iterator.next();
+                if (next.getValue() instanceof String) {
+                    if (TextUtils.isEmpty((CharSequence) next.getValue())) {
+                        iterator.remove();
+                    }
+                }
+            }
+
+            iterator = batteryMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, Object> next = iterator.next();
+                if (next.getValue() instanceof String) {
+                    if (TextUtils.isEmpty((CharSequence) next.getValue())) {
+                        iterator.remove();
+                    }
+                }
+            }
+
+            iterator = simMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, Object> next = iterator.next();
+                if (next.getValue() instanceof String) {
+                    if (TextUtils.isEmpty((CharSequence) next.getValue())) {
+                        iterator.remove();
+                    }
+                }
             }
 
 
