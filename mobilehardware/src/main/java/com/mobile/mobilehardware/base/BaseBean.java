@@ -29,14 +29,14 @@ public class BaseBean implements Serializable {
 
     public String isEmpty(String value) {
         if (TextUtils.isEmpty(value) || value.equals("null")) {
-            return BaseData.UNKNOWN_PARAM;
+            return "";
         }
         return value;
     }
 
     protected String isEmpty(CharSequence value) {
         if (value == null) {
-            return BaseData.UNKNOWN_PARAM;
+            return "";
         }
         return value.toString();
     }

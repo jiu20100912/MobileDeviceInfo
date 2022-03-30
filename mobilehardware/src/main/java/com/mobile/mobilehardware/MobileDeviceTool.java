@@ -1,6 +1,7 @@
 package com.mobile.mobilehardware;
 
 import android.os.SystemClock;
+import android.text.TextUtils;
 
 import com.mobile.mobilehardware.band.BandBean;
 import com.mobile.mobilehardware.band.BandHelper;
@@ -33,8 +34,10 @@ import com.mobile.mobilehardware.wifilist.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 public class MobileDeviceTool {
@@ -77,7 +80,8 @@ public class MobileDeviceTool {
                             map.put("ssid", jb.isEmpty(jb.getSSID()));
                             map.put("bssid", bssid);
                             map.put("current", bssid.equals(curBSSID));
-                            map.put("mac", mac);
+                            if (!TextUtils.isEmpty(mac))
+                                map.put("mac", mac);
                             wifiList.add(map);
                         }
                     }
@@ -177,6 +181,8 @@ public class MobileDeviceTool {
 
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                deviceBaseMap.putAll(cpuMap);
             }
 
             try {
@@ -199,11 +205,22 @@ public class MobileDeviceTool {
                     for (int i = 0; i < length; i++) {
                         CellIdentityBean    cell = cellIdentityList.get(i);
                         Map<String, Object> map  = new HashMap<>();
-                        map.put("cid", cell.isEmpty(cell.getCid()));
-                        map.put("lac", cell.isEmpty(cell.getLac()));
-                        map.put("mcc", cell.isEmpty(cell.getMcc()));
-                        map.put("mnc", cell.isEmpty(cell.getMnc()));
-                        map.put("type", cell.isEmpty(cell.getType()));
+                        String              cid  = cell.isEmpty(cell.getCid());
+                        String              lac  = cell.isEmpty(cell.getLac());
+                        String              mcc  = cell.isEmpty(cell.getMcc());
+                        String              mnc  = cell.isEmpty(cell.getMnc());
+                        String              type = cell.isEmpty(cell.getType());
+
+                        if (!TextUtils.isEmpty(cid))
+                            map.put("cid", cid);
+                        if (!TextUtils.isEmpty(lac))
+                            map.put("lac", lac);
+                        if (!TextUtils.isEmpty(mcc))
+                            map.put("mcc", mcc);
+                        if (!TextUtils.isEmpty(mnc))
+                            map.put("mnc", mnc);
+                        if (!TextUtils.isEmpty(type))
+                            map.put("type", type);
                         map.put("dbm", cell.getDbm());
 
                         cellList.add(map);
@@ -216,11 +233,40 @@ public class MobileDeviceTool {
                 e.printStackTrace();
             }
 
+            Iterator<Map.Entry<String, Object>> iterator = deviceBaseMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, Object> next = iterator.next();
+                if (next.getValue() instanceof String) {
+                    if (TextUtils.isEmpty((CharSequence) next.getValue())) {
+                        iterator.remove();
+                    }
+                }
+            }
+
+            iterator = batteryMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, Object> next = iterator.next();
+                if (next.getValue() instanceof String) {
+                    if (TextUtils.isEmpty((CharSequence) next.getValue())) {
+                        iterator.remove();
+                    }
+                }
+            }
+
+            iterator = simMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, Object> next = iterator.next();
+                if (next.getValue() instanceof String) {
+                    if (TextUtils.isEmpty((CharSequence) next.getValue())) {
+                        iterator.remove();
+                    }
+                }
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            deviceBaseMap.putAll(cpuMap);
             resultListener.onDeviceResult(deviceBaseMap, batteryMap, simMap, cellList);
         }
 
